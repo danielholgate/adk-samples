@@ -44,8 +44,17 @@ if default_app:
 else:
     os.environ["ADK_DEFAULT_APP_NAME"] = "froyo_product_analysis"
 
+# Enable tracing / OpenTelemetry options from environment variables
+trace_to_cloud = os.getenv("TRACE_TO_CLOUD", "True").lower() in ("true", "1")
+otel_to_cloud = os.getenv("OTEL_TO_CLOUD", "False").lower() in ("true", "1")
+
 # Prepare arguments for get_fast_api_app
-app_args = {"agents_dir": AGENT_DIR, "web": web_interface_enabled}
+app_args = {
+    "agents_dir": AGENT_DIR,
+    "web": web_interface_enabled,
+    "trace_to_cloud": trace_to_cloud,
+    "otel_to_cloud": otel_to_cloud,
+}
 
 # Only include session_service_uri if it's provided, otherwise default to in-memory session service
 if session_uri:
