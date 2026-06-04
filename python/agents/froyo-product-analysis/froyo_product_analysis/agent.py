@@ -51,12 +51,45 @@ GOOGLE_CLOUD_LOCATION = os.getenv("GOOGLE_CLOUD_LOCATION", "global")
 _, default_project_id = default()
 os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "True"
 
+from a2a.types import TransportProtocol as A2ATransport
+from google.adk.integrations.agent_registry.agent_registry import AgentRegistrySingleMcpToolset
+from google.adk.tools.mcp_tool.mcp_session_manager import StreamableHTTPConnectionParams
+
 # Initialize the Agent Registry client
 registry = AgentRegistry(project_id=default_project_id, location=GOOGLE_CLOUD_LOCATION)
 
-# Retrieve the remote Dataplex MCP server toolset from Google Cloud
-dataplex_mcp_toolset = registry.get_mcp_toolset(
-    f"projects/cloud-summit-data-analytics/locations/{GOOGLE_CLOUD_LOCATION}/mcpServers/{MCP_SERVER_NAME}"
+# Fetch remote server details from Agent Registry
+mcp_server_resource = f"projects/cloud-summit-data-analytics/locations/{GOOGLE_CLOUD_LOCATION}/mcpServers/{MCP_SERVER_NAME}"
+server_details = registry.get_mcp_server(mcp_server_resource)
+
+# Extract connection details
+endpoint_uri, _, _ = registry._get_connection_uri(
+    server_details, protocol_binding=A2ATransport.jsonrpc
+)
+if not endpoint_uri:
+    endpoint_uri, _, _ = registry._get_connection_uri(
+        server_details, protocol_binding=A2ATransport.http_json
+    )
+if not endpoint_uri:
+    raise ValueError(f"MCP Server endpoint URI not found for: {mcp_server_resource}")
+
+mcp_server_id = server_details.get("mcpServerId")
+clean_prefix = registry._clean_name(server_details.get("displayName", mcp_server_resource))
+
+# Get authentication headers directly on startup
+auth_headers = registry._get_auth_headers()
+
+# Inject authorization headers directly into the connection parameters
+connection_params = StreamableHTTPConnectionParams(
+    url=endpoint_uri,
+    headers=auth_headers
+)
+
+# Instantiate the Toolset with static headers
+dataplex_mcp_toolset = AgentRegistrySingleMcpToolset(
+    destination_resource_id=mcp_server_id,
+    connection_params=connection_params,
+    tool_name_prefix=clean_prefix
 )
 
 
