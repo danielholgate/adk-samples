@@ -139,5 +139,5 @@ To containerize and deploy the agent to Google Cloud Run:
    or
 
    ```
-   uvx --from google-adk>=2.0.0 adk deploy cloud_run --project=cloud-summit-data-analytics --region=us-central1 --service_name=froyo-agent --with_ui ./froyo_product_analysis -- --service-account=769357427691-compute@developer.gserviceaccount.com
+   uvx --from google-adk>=2.0.0 adk deploy cloud_run --project=cloud-summit-data-analytics --region=us-central1 --service_name=froyo-agent --with_ui ./froyo_product_analysis -- --service-account=
    ```
