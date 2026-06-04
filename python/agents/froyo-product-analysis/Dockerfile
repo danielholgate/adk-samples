@@ -3,25 +3,15 @@ FROM python:3.12-slim
 # Prevents Python from buffering stdout and stderr
 ENV PYTHONUNBUFFERED=1
 
-# Configure Poetry
-ENV POETRY_VERSION=1.2.0
-ENV POETRY_HOME=/opt/poetry
-ENV POETRY_VENV=/opt/poetry-venv
-ENV POETRY_CACHE_DIR=/opt/.cache
-
-# Install poetry separated from system interpreter
-RUN python3 -m venv $POETRY_VENV \
-    && $POETRY_VENV/bin/pip install -U pip setuptools \
-    && $POETRY_VENV/bin/pip install poetry==${POETRY_VERSION}
-
-# Add `poetry` to PATH
-ENV PATH="${PATH}:${POETRY_VENV}/bin"
-
 WORKDIR /app
 
-# Install dependencies
-COPY poetry.lock pyproject.toml ./
-RUN poetry install
+# Install all project dependencies into the system Python.
+# We copy pyproject.toml + app/ first (app/ is needed because the project
+# is defined as a package in pyproject.toml and must be installable).
+# uv pip install --system targets /usr/local/lib/python3.11/ directly,
+# making packages available to KFP's executor without activating a venv.
+COPY pyproject.toml README.md uv.lock* ./
+RUN uv pip install --system --no-cache .
 
 # Copy the project files
 COPY . .
