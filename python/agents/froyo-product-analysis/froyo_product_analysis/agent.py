@@ -47,7 +47,6 @@ MCP_SERVER_NAME = os.getenv("MCP_SERVER_NAME", "agentregistry-00000000-0000-0000
 # Google Cloud Location where the Agent Registry MCP Server is deployed
 GOOGLE_CLOUD_LOCATION = os.getenv("GOOGLE_CLOUD_LOCATION", "global")
 
-
 # Authenticate and obtain active project credentials
 _, default_project_id = default()
 os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "True"

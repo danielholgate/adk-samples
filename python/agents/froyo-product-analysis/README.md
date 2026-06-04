@@ -2,7 +2,7 @@
 
 A specialized agent developed using the **Google Python Agent Development Kit (Python ADK)** to serve as a Product Analysis Assistant for **Froyo**, a premium frozen yogurt brand.  
 
-This agent assists analysts in understanding ingredients and product analysis using a **Dataplex (Knowledge Catalog) MCP Server**, querying transaction records via **BigQuery**, launching batch analytics jobs on **Dataproc (Spark)**, and rendering interactive performance charts via **Plotly**. 
+This agent assists analysts in understanding ingredients and product analysis by querying data in **BigQuery**, launching batch analytics jobs on **Dataproc (Spark)**, and rendering interactive performance charts via **Plotly**
 
 ---
 
@@ -33,7 +33,7 @@ Configuration is managed via environment variables. Copy `.env.example` to `.env
 AGENT_MODEL="gemini-2.5-flash"
 
 # Google Cloud project ID containing your BigQuery datasets and Dataproc clusters
-GOOGLE_CLOUD_PROJECT="froyo-analytics-prod"
+GOOGLE_CLOUD_PROJECT="cloud-summit-data-analytics"
 
 # Google Cloud region where your Dataproc cluster is hosted
 DATAPROC_REGION="us-central1"
@@ -43,8 +43,9 @@ GCS_BUCKET_FOR_SPARK="froyo-analytics-lake"
 ```
 
 ## Execution & Data Processing Rules
-- **CRITICAL RULE - Structured Specs**: The semantic and structured information extracted from the PDFs is available in a BigQuery dataset named `cloud_summits_pdfs`
-- **CRITICAL RULE - Customer Data**: Existing Froyo customer data resides in BigQuery in the dataset `cloud_summit_pdfs`. When you are referencing a dataset, ensure you are using it with the project ID (`cloud-summit-data-analytics`) and namespace prefix `acai_dataset`. For example, to query order table in this dataset you should use `cloud-summit-data-analytics.acai_dataset.cloud_summit_pdfs.orders`.
+- **CRITICAL RULE - Structured Specs**: Semantic and structured information extracted from the PDFs is available in a BigQuery dataset named `cloud_summits_pdfs`
+- **CRITICAL RULE - Customer Data**: Existing Froyo customer data is in BigQuery in the dataset `cloud_summit_pdfs`. When referencing a dataset, ensure you are always using it with the project ID (`cloud-summit-data-analytics`) and namespace prefix `acai_dataset`. For example, to query the order table in this dataset you should use `cloud-summit-data-analytics.acai_dataset.cloud_summit_pdfs.orders`. 
+
 - **CRITICAL RULE - Data Joins between BigQuery dataset and Iceberg dataset**: ANY task requiring a join or integration between the BigQuery datasets `cloud_summit_pdfs` of the PDF data and the `cloud_summit_pdfs` of the customer data MUST be executed using **Spark Notebooks**.
 - **CRITICAL RULE - Notebook Kernel**: Every Spark notebook utilized MUST exclusively be configured to run on the Serverless Session template `iceberg-federation-template` as its kernel.
 - **CRITICAL RULE - Data Science**: ANY data science, machine learning, or advanced analytical task MUST be performed strictly within **Spark Notebooks** using the aforementioned setup.
@@ -95,18 +96,6 @@ uv run python run_local.py
 
 # Using poetry
 poetry run python run_local.py
-```
-
-#### Example Conversation
-```
-You: List the assets in the catalog and check how the sales table relates to the ingredients catalog.
-
-[froyo_product_analysis_agent Calling Tool]: list_catalog_assets( {} )
-...
-[froyo_product_analysis_agent]: Based on the Froyo Knowledge Catalog:
-1. `froyo_sales_bq` (BigQuery sales fact table) joins with `froyo_products_bq` (Product dimension).
-2. `froyo_products_bq` has a recipe composition relationship with `froyo_ingredients_bq`.
-Therefore, the sales table maps to ingredients through the product dimension table.
 ```
 
 ### 3. Running Unit Tests
