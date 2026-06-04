@@ -1,0 +1,483 @@
+./bidi-demo/uv.lock:    { name = "google-adk" },
+./bidi-demo/uv.lock:    { name = "google-adk", specifier = ">=1.32.0" },
+./bidi-demo/uv.lock:name = "google-adk"
+./bidi-demo/uv.lock:    { name = "google-adk" },
+./bidi-demo/agent_engine/deploy.py:                "google-adk",
+./bidi-demo/pyproject.toml:    "google-adk>=1.32.0",
+./ambient-expense-agent/uv.lock:    { name = "google-adk" },
+./ambient-expense-agent/uv.lock:    { name = "google-adk", specifier = ">=2.0.0a0" },
+./ambient-expense-agent/uv.lock:name = "google-adk"
+./ambient-expense-agent/pyproject.toml:    "google-adk>=2.0.0a0",
+./incident-management/uv.lock:name = "google-adk"
+./incident-management/uv.lock:    { name = "google-adk" },
+./incident-management/uv.lock:    { name = "google-adk" },
+./incident-management/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./incident-management/uv.lock:    { name = "google-adk", specifier = ">=1.5.0,<2.0.0" },
+./incident-management/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.0.0" },
+./incident-management/pyproject.toml:    "google-adk>=1.5.0,<2.0.0",
+./incident-management/pyproject.toml:    "google-adk[eval]>=1.0.0",
+./retail-ai-location-strategy/uv.lock:name = "google-adk"
+./retail-ai-location-strategy/uv.lock:    { name = "google-adk" },
+./retail-ai-location-strategy/uv.lock:    { name = "google-adk", specifier = ">=1.20.0" },
+./retail-ai-location-strategy/pyproject.toml:    "google-adk>=1.20.0",
+./retail-ai-location-strategy/requirements.txt:google-adk>=1.20.0
+./cyber-guardian-agent/uv.lock:    { name = "google-adk" },
+./cyber-guardian-agent/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./cyber-guardian-agent/uv.lock:    { name = "google-adk", specifier = ">=1.31.0" },
+./cyber-guardian-agent/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.31.0" },
+./cyber-guardian-agent/uv.lock:name = "google-adk"
+./cyber-guardian-agent/uv.lock:    { name = "google-adk" },
+./cyber-guardian-agent/pyproject.toml:    "google-adk>=1.31.0",
+./cyber-guardian-agent/pyproject.toml:    "google-adk[eval]>=1.31.0",
+./multiformat-hybrid-rag/uv.lock:name = "google-adk"
+./multiformat-hybrid-rag/uv.lock:    { name = "google-adk" },
+./multiformat-hybrid-rag/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./multiformat-hybrid-rag/uv.lock:    { name = "google-adk", specifier = ">=1.28.1,<2.0.0" },
+./multiformat-hybrid-rag/uv.lock:    { name = "google-adk", extras = ["eval"], marker = "extra == 'eval'", specifier = ">=1.28.1,<2.0.0" },
+./multiformat-hybrid-rag/data_ingestion_pipeline/preprocess_service/Dockerfile:# Using a slim requirements.txt avoids pulling in google-adk (which
+./multiformat-hybrid-rag/data_ingestion_pipeline/preprocess_service/requirements.txt:# This avoids installing google-adk (which hijacks FastAPI routes)
+./multiformat-hybrid-rag/data_ingestion_pipeline/chunk_index_service/requirements.txt:# Mirrors preprocess_service: avoids google-adk, bigframes, kfp, and
+./multiformat-hybrid-rag/pyproject.toml:    "google-adk>=1.28.1,<2.0.0",
+./multiformat-hybrid-rag/pyproject.toml:    "google-adk[eval]>=1.28.1,<2.0.0",
+./tau2-benchmark-agent/uv.lock:name = "google-adk"
+./tau2-benchmark-agent/uv.lock:    { name = "google-adk" },
+./tau2-benchmark-agent/uv.lock:    { name = "google-adk", specifier = "==1.19.0" },
+./tau2-benchmark-agent/pyproject.toml:    "google-adk==1.19.0",
+./nurse-handover/uv.lock:name = "google-adk"
+./nurse-handover/uv.lock:    { name = "google-adk" },
+./nurse-handover/uv.lock:    { name = "google-adk", specifier = ">=1.31.0" },
+./nurse-handover/pyproject.toml:    "google-adk>=1.13.0",
+./agent-observability-bq/uv.lock:name = "google-adk"
+./agent-observability-bq/uv.lock:    { name = "google-adk" },
+./fomc-research/README.md:    This will also install the released version of 'google-adk', the Google Agent Development Kit.
+./fomc-research/uv.lock:    { name = "google-adk" },
+./fomc-research/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./fomc-research/uv.lock:    { name = "google-adk", specifier = ">=1.31.0" },
+./fomc-research/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.31.0" },
+./fomc-research/uv.lock:name = "google-adk"
+./fomc-research/uv.lock:    { name = "google-adk" },
+./fomc-research/pyproject.toml:    "google-adk>=1.31.0",
+./fomc-research/pyproject.toml:    "google-adk[eval]>=1.31.0",
+./RAG/uv.lock:name = "google-adk"
+./RAG/uv.lock:    { name = "google-adk" },
+./RAG/uv.lock:name = "openinference-instrumentation-google-adk"
+./RAG/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./RAG/uv.lock:    { name = "openinference-instrumentation-google-adk" },
+./RAG/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.31.0" },
+./RAG/uv.lock:    { name = "openinference-instrumentation-google-adk", specifier = ">=0.1.0" },
+./RAG/rag/app_utils/deploy.py:        agent_framework="google-adk",
+./RAG/pyproject.toml:    "google-adk[eval]>=1.31.0",
+./RAG/pyproject.toml:    "openinference-instrumentation-google-adk>=0.1.0",
+./RAG/deployment/deploy.py:        "google-adk[eval]>=1.31.0",
+./nexshift-agent/uv.lock:name = "google-adk"
+./nexshift-agent/uv.lock:sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/google-adk/google_adk-1.28.1.tar.gz", hash = "sha256:76e6ec4a13f981bd9c2c7782e8b37b0e973b570b699b750a52444998e8886ced" }
+./nexshift-agent/uv.lock:    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/google-adk/google_adk-1.28.1-py3-none-any.whl", hash = "sha256:ee7cdf90ba05737be3a2aa4867804324a02f2918bd810e746fe6416184e11511" },
+./nexshift-agent/uv.lock:    { name = "google-adk" },
+./nexshift-agent/uv.lock:    { name = "google-adk", specifier = ">=1.28.1" },
+./nexshift-agent/pyproject.toml:    "google-adk>=1.28.1",
+./nexshift-agent/deployment/deploy.py:        print("✅ google-adk installed")
+./nexshift-agent/deployment/deploy.py:        print("❌ Missing google-adk. Install with:")
+./nexshift-agent/deployment/deploy.py:        print("   pip install google-adk")
+./nexshift-agent/deployment/deploy.py:                "google-adk>=1.28.1",
+./sdlc-technical-designer/uv.lock:name = "google-adk"
+./sdlc-technical-designer/uv.lock:    { name = "google-adk" },
+./sdlc-technical-designer/uv.lock:    { name = "google-adk" },
+./sdlc-technical-designer/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./sdlc-technical-designer/uv.lock:    { name = "google-adk", specifier = ">=1.31.0" },
+./sdlc-technical-designer/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.31.0" },
+./sdlc-technical-designer/pyproject.toml:    "google-adk>=1.31.0",
+./sdlc-technical-designer/pyproject.toml:    "google-adk[eval]>=1.31.0",
+./sdlc-technical-designer/deployment/deploy.py:            "google-adk (>=1.31.0)",
+./brand-aligned-presentations/uv.lock:    { name = "google-adk" },
+./brand-aligned-presentations/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./brand-aligned-presentations/uv.lock:    { name = "google-adk", specifier = ">=1.31.0" },
+./brand-aligned-presentations/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.31.0" },
+./brand-aligned-presentations/uv.lock:name = "google-adk"
+./brand-aligned-presentations/pyproject.toml:    "google-adk>=1.31.0",
+./brand-aligned-presentations/pyproject.toml:    "google-adk[eval]>=1.31.0",
+./small-business-loan-agent/uv.lock:name = "google-adk"
+./small-business-loan-agent/uv.lock:    { name = "google-adk" },
+./small-business-loan-agent/uv.lock:    { name = "google-adk" },
+./small-business-loan-agent/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./small-business-loan-agent/uv.lock:    { name = "google-adk", specifier = ">=1.31.0" },
+./small-business-loan-agent/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.27.4" },
+./small-business-loan-agent/pyproject.toml:    "google-adk>=1.31.0",
+./small-business-loan-agent/pyproject.toml:    "google-adk[eval]>=1.27.4",
+./sdlc-task-planner/uv.lock:name = "google-adk"
+./sdlc-task-planner/uv.lock:    { name = "google-adk" },
+./sdlc-task-planner/uv.lock:    { name = "google-adk" },
+./sdlc-task-planner/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./sdlc-task-planner/uv.lock:    { name = "google-adk", specifier = ">=1.31.0" },
+./sdlc-task-planner/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.31.0" },
+./sdlc-task-planner/pyproject.toml:    "google-adk>=1.31.0",
+./sdlc-task-planner/pyproject.toml:    "google-adk[eval]>=1.31.0",
+./sdlc-task-planner/deployment/deploy.py:            "google-adk (>=1.31.0)",
+./policy-as-code/docs/HIGH_LEVEL_DETAILS.md:        *   `google-adk`: The framework for building the agent.
+./policy-as-code/uv.lock:name = "google-adk"
+./policy-as-code/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./policy-as-code/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = "==1.21.0" },
+./policy-as-code/pyproject.toml:    "google-adk[eval]==1.21.0",
+./marketing-agency/uv.lock:name = "google-adk"
+./marketing-agency/uv.lock:    { name = "google-adk" },
+./marketing-agency/uv.lock:    { name = "google-adk" },
+./marketing-agency/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./marketing-agency/uv.lock:    { name = "google-adk", specifier = ">=1.0.0" },
+./marketing-agency/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.0.0" },
+./marketing-agency/pyproject.toml:    "google-adk>=1.0.0",
+./marketing-agency/pyproject.toml:    "google-adk[eval]>=1.0.0",
+./marketing-agency/deployment/deploy.py:            "google-adk (>=0.0.2)",
+./camel/uv.lock:    { name = "google-adk" },
+./camel/uv.lock:    { name = "google-adk", specifier = ">=1.0.0" },
+./camel/uv.lock:name = "google-adk"
+./camel/uv.lock:    { name = "google-adk" },
+./camel/pyproject.toml:    "google-adk>=1.0.0",
+./youtube-analyst/uv.lock:name = "google-adk"
+./youtube-analyst/uv.lock:    { name = "google-adk" },
+./youtube-analyst/uv.lock:    { name = "google-adk", specifier = ">=1.31.0" },
+./youtube-analyst/pyproject.toml:    "google-adk>=1.31.0",
+./on-brand-genmedia/uv.lock:name = "google-adk"
+./on-brand-genmedia/uv.lock:    { name = "google-adk" },
+./on-brand-genmedia/uv.lock:    { name = "google-adk" },
+./on-brand-genmedia/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./on-brand-genmedia/uv.lock:    { name = "google-adk", specifier = ">=1.31.0" },
+./on-brand-genmedia/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.31.0" },
+./on-brand-genmedia/pyproject.toml:    "google-adk>=1.31.0",
+./on-brand-genmedia/pyproject.toml:    "google-adk[eval]>=1.31.0",
+./currency-agent/README.md:A sample agent demonstrating A2A + ADK + MCP working together. It leverages the new **Agent2Agent (A2A) Python SDK** ([`a2a-sdk`](https://github.com/google-a2a/a2a-python)) and **v1.0.0+** of Google's **Agent Development Kit (ADK)**, [`google-adk`](https://github.com/google/adk-python).
+./currency-agent/uv.lock:    { name = "google-adk" },
+./currency-agent/uv.lock:    { name = "google-adk", specifier = "==1.13.0" },
+./currency-agent/uv.lock:name = "google-adk"
+./currency-agent/pyproject.toml:    "google-adk==1.13.0",
+./invoice-processing/invoice_processing/requirements.txt:google-adk>=1.0.0
+./invoice-processing/uv.lock:name = "google-adk"
+./invoice-processing/uv.lock:    { name = "google-adk" },
+./invoice-processing/uv.lock:    { name = "google-adk", specifier = ">=1.0.0" },
+./invoice-processing/pyproject.toml:    "google-adk>=1.0.0",
+./invoice-processing/deployment/README.md:- Python packages: `google-adk[vertexai]`, `python-dotenv`
+./invoice-processing/deployment/README.md:pip install "google-adk[vertexai]" python-dotenv
+./product-catalog-ad-generation/uv.lock:    { name = "google-adk" },
+./product-catalog-ad-generation/uv.lock:    { name = "google-adk", specifier = "==1.31.0" },
+./product-catalog-ad-generation/uv.lock:name = "google-adk"
+./product-catalog-ad-generation/uv.lock:sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/google-adk/google_adk-1.31.0.tar.gz", hash = "sha256:1ebcf2f3c790bd95e8fc43c5390606a9a1019f424bdbd675fcdd4ed33e5b4c3d" }
+./product-catalog-ad-generation/uv.lock:    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/google-adk/google_adk-1.31.0-py3-none-any.whl", hash = "sha256:1886cfd0c9f1455fb08500348e8861be6c6810ec3eabc9dfcbfe1309ea8e3202" },
+./product-catalog-ad-generation/uv.lock:    { name = "google-adk" },
+./product-catalog-ad-generation/pyproject.toml:    "google-adk==1.31.0",
+./adk-ae-oauth/uv.lock:    { name = "google-adk" },
+./adk-ae-oauth/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./adk-ae-oauth/uv.lock:    { name = "google-adk", specifier = "==1.31.0" },
+./adk-ae-oauth/uv.lock:    { name = "google-adk", extras = ["eval"], marker = "extra == 'eval'", specifier = "==1.31.0" },
+./adk-ae-oauth/uv.lock:name = "google-adk"
+./adk-ae-oauth/adk_ae_oauth/app_utils/deploy.py:        agent_framework="google-adk",
+./adk-ae-oauth/pyproject.toml:    "google-adk==1.31.0",
+./adk-ae-oauth/pyproject.toml:    "google-adk[eval]==1.31.0",
+./swe-benchmark-agent/uv.lock:name = "google-adk"
+./swe-benchmark-agent/uv.lock:    { name = "google-adk" },
+./swe-benchmark-agent/uv.lock:    { name = "google-adk", specifier = ">=1.15.1" },
+./swe-benchmark-agent/pyproject.toml:    "google-adk>=1.15.1",
+./data-engineering/uv.lock:    { name = "google-adk" },
+./data-engineering/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./data-engineering/uv.lock:    { name = "google-adk", specifier = ">=0.1.0" },
+./data-engineering/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.0.0" },
+./data-engineering/uv.lock:name = "google-adk"
+./data-engineering/pyproject.toml:    "google-adk>=1.31.0",
+./data-engineering/pyproject.toml:    "google-adk[eval]>=1.31.0",
+./data-engineering/deployment/deploy.py:            "google-adk (>=0.0.2)",
+./story_teller/uv.lock:name = "google-adk"
+./story_teller/uv.lock:    { name = "google-adk" },
+./story_teller/uv.lock:    { name = "google-adk", specifier = ">=1.0.0" },
+./story_teller/pyproject.toml:    "google-adk>=1.0.0",
+./agent-skills-tutorial/README.md:- [Google ADK](https://google.github.io/adk-docs/) (`pip install google-adk`)
+./agent-skills-tutorial/pyproject.toml:    "google-adk>=1.0.0,<2.0.0",
+./agent-skills-tutorial/pyproject.toml:    "google-adk[eval]>=1.0.0",
+./airflow_version_upgrade_agent/uv.lock:    { name = "google-adk" },
+./airflow_version_upgrade_agent/uv.lock:    { name = "google-adk", specifier = "==1.28.0" },
+./airflow_version_upgrade_agent/uv.lock:name = "google-adk"
+./airflow_version_upgrade_agent/pyproject.toml:    "google-adk==1.28.0",
+./hierarchical-workflow-automation/README.md:   # Ensure google-adk package is installed with BigQuery support
+./hierarchical-workflow-automation/README.md:   pip install google-adk[bigquery]
+./hierarchical-workflow-automation/cookie_scheduler_agent/bigquery_utils/README.md:pip install google-adk[bigquery]
+./hierarchical-workflow-automation/cookie_scheduler_agent/bigquery_utils/README.md:   pip install google-adk[bigquery]
+./hierarchical-workflow-automation/cookie_scheduler_agent/bigquery_utils/BIGQUERY_SETUP.md:- Python dependencies installed (`pip install google-adk[bigquery]`)
+./hierarchical-workflow-automation/cookie_scheduler_agent/bigquery_utils/BIGQUERY_SETUP.md:   pip install google-adk[bigquery]
+./hierarchical-workflow-automation/uv.lock:    { name = "google-adk" },
+./hierarchical-workflow-automation/uv.lock:    { name = "google-adk", specifier = ">=1.13.0" },
+./hierarchical-workflow-automation/uv.lock:name = "google-adk"
+./hierarchical-workflow-automation/uv.lock:    { name = "google-adk" },
+./hierarchical-workflow-automation/deploy_agent.py:            "Make sure google-adk is installed and the agent module is in the Python path"
+./hierarchical-workflow-automation/pyproject.toml:    "google-adk>=1.13.0",
+./hierarchical-workflow-automation/requirements.txt:google-adk==1.13.0
+./memory-bank/uv.lock:name = "google-adk"
+./memory-bank/uv.lock:    { name = "google-adk" },
+./memory-bank/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./memory-bank/uv.lock:    { name = "google-adk", specifier = ">=1.15.0,<2.0.0" },
+./memory-bank/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.15.0,<2.0.0" },
+./memory-bank/app/app_utils/deploy.py:        agent_framework="google-adk",
+./memory-bank/pyproject.toml:    "google-adk>=1.15.0,<2.0.0",
+./memory-bank/pyproject.toml:    "google-adk[eval]>=1.15.0,<2.0.0",
+./brand-search-optimization/uv.lock:    { name = "google-adk" },
+./brand-search-optimization/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./brand-search-optimization/uv.lock:    { name = "google-adk", specifier = ">=1.31.0,<2.0.0" },
+./brand-search-optimization/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.31.0" },
+./brand-search-optimization/uv.lock:name = "google-adk"
+./brand-search-optimization/pyproject.toml:    "google-adk>=1.31.0,<2.0.0",
+./brand-search-optimization/pyproject.toml:    "google-adk[eval]>=1.31.0",
+./brand-search-optimization/deployment/deploy.py:            "google-adk>=1.0.0,<2.0.0",
+./workflow-concurrent_research_writer/pyproject.toml:    "google-adk>=1.5.0,<2.0.0",
+./workflow-concurrent_research_writer/pyproject.toml:    "google-adk>=1.5.0,<2.0.0",
+./financial-advisor/uv.lock:    { name = "google-adk" },
+./financial-advisor/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./financial-advisor/uv.lock:    { name = "google-adk", specifier = ">=1.0.0" },
+./financial-advisor/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.0.0" },
+./financial-advisor/uv.lock:name = "google-adk"
+./financial-advisor/uv.lock:    { name = "google-adk" },
+./financial-advisor/pyproject.toml:    "google-adk>=1.0.0",
+./financial-advisor/pyproject.toml:    "google-adk[eval]>=1.0.0",
+./financial-advisor/deployment/deploy.py:            "google-adk (>=0.0.2)",
+./google-trends-agent/uv.lock:name = "google-adk"
+./google-trends-agent/uv.lock:    { name = "google-adk" },
+./google-trends-agent/uv.lock:    { name = "google-adk" },
+./google-trends-agent/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./google-trends-agent/uv.lock:    { name = "google-adk", specifier = ">=1.31.0,<2.0.0" },
+./google-trends-agent/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.31.0" },
+./google-trends-agent/pyproject.toml:    "google-adk>=1.31.0,<2.0.0",
+./google-trends-agent/pyproject.toml:    "google-adk[eval]>=1.31.0",
+./fun-facts/README.md:- **ADK CLI** installed (`pip install google-adk`).
+./fun-facts/uv.lock:    { name = "google-adk" },
+./fun-facts/uv.lock:    { name = "google-adk", specifier = ">=1.31.0" },
+./fun-facts/uv.lock:name = "google-adk"
+./fun-facts/pyproject.toml:    "google-adk>=1.31.0",
+./plumber-data-engineering-assistant/uv.lock:name = "google-adk"
+./plumber-data-engineering-assistant/uv.lock:    { name = "google-adk" },
+./plumber-data-engineering-assistant/uv.lock:    { name = "google-adk", specifier = "==1.31.0" },
+./plumber-data-engineering-assistant/pyproject.toml:    "google-adk==1.31.0",
+./order-processing/uv.lock:name = "google-adk"
+./order-processing/uv.lock:    { name = "google-adk" },
+./order-processing/uv.lock:    { name = "google-adk" },
+./order-processing/uv.lock:    { name = "google-adk", specifier = ">=1.5.0,<2.0.0" },
+./order-processing/pyproject.toml:    "google-adk>=1.5.0,<2.0.0",
+./order-processing/pyproject.toml:    # google-adk is already in main dependencies
+./order-processing/deployment/deploy.py:        "google-adk>=1.5.0,<2.0.0",
+./realtime-conversational-agent/server/uv.lock:name = "google-adk"
+./realtime-conversational-agent/server/uv.lock:    { name = "google-adk" },
+./realtime-conversational-agent/server/uv.lock:    { name = "google-adk", specifier = ">=1.14.1" },
+./realtime-conversational-agent/server/pyproject.toml:    "google-adk>=1.14.1",
+./supply-chain/uv.lock:name = "google-adk"
+./supply-chain/uv.lock:sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/google-adk/google_adk-1.32.0.tar.gz", hash = "sha256:539df330a695d8ae5dc1bc3f1155ef03c6c620620cd0b690b8d47865e722e51c" }
+./supply-chain/uv.lock:    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/google-adk/google_adk-1.32.0-py3-none-any.whl", hash = "sha256:cee8e8bd1d869f7e01ba3e5aac44b255f70ee3f9bb78cb50b3253ce605703b0d" },
+./supply-chain/uv.lock:    { name = "google-adk" },
+./supply-chain/uv.lock:    { name = "google-adk" },
+./supply-chain/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./supply-chain/uv.lock:    { name = "google-adk", specifier = ">=1.31.0,<2.0.0" },
+./supply-chain/uv.lock:    { name = "google-adk", extras = ["eval"], marker = "extra == 'dev'", specifier = ">=1.31.0" },
+./supply-chain/pyproject.toml:    "google-adk (>=1.31.0,<2.0.0)",
+./supply-chain/pyproject.toml:    "google-adk[eval]>=1.31.0"
+./parallel_task_decomposition_execution/README.md:    This will also install the released version of 'google-adk', the Google Agent Development Kit.
+./parallel_task_decomposition_execution/uv.lock:name = "google-adk"
+./parallel_task_decomposition_execution/uv.lock:    { name = "google-adk" },
+./parallel_task_decomposition_execution/uv.lock:    { name = "google-adk" },
+./parallel_task_decomposition_execution/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./parallel_task_decomposition_execution/uv.lock:    { name = "google-adk", specifier = "==1.19.0" },
+./parallel_task_decomposition_execution/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.0.0" },
+./parallel_task_decomposition_execution/pyproject.toml:    "google-adk==1.19.0",
+./parallel_task_decomposition_execution/pyproject.toml:    "google-adk[eval]>=1.0.0",
+./parallel_task_decomposition_execution/requirements.txt:google-adk==1.19.0
+./ai-security-agent/uv.lock:    { name = "google-adk" },
+./ai-security-agent/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./ai-security-agent/uv.lock:    { name = "google-adk", specifier = ">=1.31.0" },
+./ai-security-agent/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.31.0" },
+./ai-security-agent/uv.lock:name = "google-adk"
+./ai-security-agent/pyproject.toml:    "google-adk>=1.31.0",
+./ai-security-agent/pyproject.toml:    "google-adk[eval]>=1.31.0",
+./workflow-morning_email_debrief/pyproject.toml:    "google-adk>=1.5.0,<2.0.0",
+./workflow-morning_email_debrief/pyproject.toml:    "google-adk>=1.5.0,<2.0.0",
+./high-volume-document-analyzer/uv.lock:name = "google-adk"
+./high-volume-document-analyzer/uv.lock:    { name = "google-adk" },
+./high-volume-document-analyzer/uv.lock:    { name = "google-adk" },
+./high-volume-document-analyzer/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./high-volume-document-analyzer/uv.lock:    { name = "google-adk", specifier = ">=1.28.0" },
+./high-volume-document-analyzer/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.28.0" },
+./high-volume-document-analyzer/deployment_utils/deploy.py:        "google-adk>=1.28.0",
+./high-volume-document-analyzer/pyproject.toml:    "google-adk>=1.28.0",
+./high-volume-document-analyzer/pyproject.toml:    "google-adk[eval]>=1.28.0",
+./image-scoring/uv.lock:name = "google-adk"
+./image-scoring/uv.lock:    { name = "google-adk" },
+./image-scoring/uv.lock:    { name = "google-adk" },
+./image-scoring/uv.lock:    { name = "google-adk", specifier = ">=1.5.0" },
+./image-scoring/pyproject.toml:    "google-adk>=1.5.0",
+./global-kyc-agent/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./global-kyc-agent/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./global-kyc-agent/uv.lock:    { name = "google-adk", extras = ["eval"] },
+./global-kyc-agent/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.0.0" },
+./global-kyc-agent/uv.lock:name = "google-adk"
+./global-kyc-agent/global_kyc_agent/requirements.txt:google-adk[eval]
+./global-kyc-agent/pyproject.toml:    "google-adk[eval]",
+./global-kyc-agent/pyproject.toml:    "google-adk[eval]>=1.0.0",
+./global-kyc-agent/requirements.txt:google-adk[eval]
+./llm-auditor/uv.lock:name = "google-adk"
+./llm-auditor/uv.lock:    { name = "google-adk" },
+./llm-auditor/uv.lock:    { name = "google-adk" },
+./llm-auditor/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./llm-auditor/uv.lock:    { name = "google-adk", specifier = ">=1.31.0" },
+./llm-auditor/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.31.0" },
+./llm-auditor/pyproject.toml:    "google-adk>=1.31.0",
+./llm-auditor/pyproject.toml:    "google-adk[eval]>=1.31.0",
+./llm-auditor/deployment/deploy.py:            "google-adk (>=0.0.2)",
+./workflows-sequential/pyproject.toml:    "google-adk>=1.5.0,<2.0.0",
+./workflows-sequential/pyproject.toml:    "google-adk>=1.5.0,<2.0.0",
+./earth-engine-geospatial/uv.lock:    { name = "google-adk" },
+./earth-engine-geospatial/uv.lock:    { name = "google-adk", specifier = ">=1.31.0" },
+./earth-engine-geospatial/uv.lock:name = "google-adk"
+./earth-engine-geospatial/uv.lock:sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/google-adk/google_adk-1.33.0.tar.gz", hash = "sha256:2fe6f8c3d02307e3763999649378620457f294ebbce62fddf4162cddca43db32" }
+./earth-engine-geospatial/uv.lock:    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/google-adk/google_adk-1.33.0-py3-none-any.whl", hash = "sha256:9ff6b2c219bfd119fef18dcfff34082148768949a9c75a0a9786218c384e2345" },
+./earth-engine-geospatial/pyproject.toml:    "google-adk>=1.31.0",
+./data-science/uv.lock:    { name = "google-adk" },
+./data-science/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./data-science/uv.lock:    { name = "google-adk", specifier = ">=1.31" },
+./data-science/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.31" },
+./data-science/uv.lock:name = "google-adk"
+./data-science/uv.lock:    { name = "google-adk" },
+./data-science/pyproject.toml:    "google-adk>=1.31",
+./data-science/pyproject.toml:    "google-adk[eval]>=1.31",
+./genmedia-for-commerce/uv.lock:    { name = "google-adk" },
+./genmedia-for-commerce/uv.lock:    { name = "google-adk", specifier = ">=1.31.0,<2.0.0" },
+./genmedia-for-commerce/uv.lock:name = "google-adk"
+./genmedia-for-commerce/genmedia4commerce/app_utils/deploy.py:        agent_framework="google-adk",
+./genmedia-for-commerce/pyproject.toml:    "google-adk>=1.31.0,<2.0.0",
+./genmedia-for-commerce/pyproject.toml:    # Note: google-adk[eval] requires google-cloud-aiplatform[evaluation]
+./genmedia-for-commerce/pyproject.toml:    # Install eval deps separately when needed: pip install google-adk[eval]
+./economic-research-agent/uv.lock:    { name = "google-adk" },
+./economic-research-agent/uv.lock:    { name = "google-adk", specifier = ">=1.31.0" },
+./economic-research-agent/uv.lock:name = "google-adk"
+./economic-research-agent/economic_research/agent.py:    agent_framework = "google-adk"
+./economic-research-agent/pyproject.toml:    "google-adk>=1.31.0",
+./economic-research-agent/requirements.txt:google-adk>=1.31.0
+./sdlc-user-story-refiner/uv.lock:name = "google-adk"
+./sdlc-user-story-refiner/uv.lock:    { name = "google-adk" },
+./sdlc-user-story-refiner/uv.lock:    { name = "google-adk" },
+./sdlc-user-story-refiner/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./sdlc-user-story-refiner/uv.lock:    { name = "google-adk", specifier = ">=1.31.0" },
+./sdlc-user-story-refiner/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.31.0" },
+./sdlc-user-story-refiner/pyproject.toml:    "google-adk>=1.31.0",
+./sdlc-user-story-refiner/pyproject.toml:    "google-adk[eval]>=1.31.0",
+./sdlc-user-story-refiner/deployment/deploy.py:            "google-adk (>=1.31.0)",
+./froyo-product-analysis/README.md:   uvx --from google-adk>=2.0.0 adk deploy cloud_run --project=cloud-summit-data-analytics --region=us-central1 --service_name=froyo-agent --with_ui ./froyo_product_analysis -- --service-account=769357427691-compute@developer.gserviceaccount.com
+./froyo-product-analysis/pyproject.toml:    "google-adk>=2.1.0",
+./froyo-product-analysis/pyproject.toml:    "google-adk[eval]>=1.31.0",
+./personalized-shopping/uv.lock:name = "google-adk"
+./personalized-shopping/uv.lock:    { name = "google-adk" },
+./personalized-shopping/uv.lock:    { name = "google-adk" },
+./personalized-shopping/uv.lock:    { name = "google-adk", specifier = ">=1.0.0" },
+./personalized-shopping/pyproject.toml:    "google-adk>=1.0.0",
+./blog-writer/uv.lock:    { name = "google-adk" },
+./blog-writer/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./blog-writer/uv.lock:    { name = "google-adk", specifier = ">=1.31.0" },
+./blog-writer/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.31.0" },
+./blog-writer/uv.lock:name = "google-adk"
+./blog-writer/uv.lock:    { name = "google-adk" },
+./blog-writer/pyproject.toml:    "google-adk>=1.31.0",
+./blog-writer/pyproject.toml:    "google-adk[eval]>=1.31.0",
+./blog-writer/requirements.txt:google-adk==1.19.0
+./antom-payment/uv.lock:    { name = "google-adk" },
+./antom-payment/uv.lock:    { name = "google-adk", specifier = ">=1.11.0" },
+./antom-payment/uv.lock:name = "google-adk"
+./antom-payment/pyproject.toml:    "google-adk>=1.11.0",
+./gemma-food-tour-guide/requirements.txt:google-adk
+./academic-research/uv.lock:    { name = "google-adk" },
+./academic-research/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./academic-research/uv.lock:    { name = "google-adk", specifier = ">=1.0.0" },
+./academic-research/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.0.0" },
+./academic-research/uv.lock:name = "google-adk"
+./academic-research/uv.lock:    { name = "google-adk" },
+./academic-research/pyproject.toml:    "google-adk>=1.0.0",
+./academic-research/pyproject.toml:    "google-adk[eval]>=1.0.0",
+./academic-research/deployment/deploy.py:            "google-adk (>=0.0.2)",
+./machine-learning-engineering/uv.lock:name = "google-adk"
+./machine-learning-engineering/uv.lock:    { name = "google-adk" },
+./machine-learning-engineering/uv.lock:    { name = "google-adk" },
+./machine-learning-engineering/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./machine-learning-engineering/uv.lock:    { name = "google-adk", specifier = ">=1.5.0" },
+./machine-learning-engineering/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.5.0" },
+./machine-learning-engineering/pyproject.toml:    "google-adk>=1.5.0",
+./machine-learning-engineering/pyproject.toml:    "google-adk[eval]>=1.5.0",
+./machine-learning-engineering/deployment/deploy.py:            "google-adk (>=1.5.0)",
+./workflows-HITL_concierge/pyproject.toml:    "google-adk>=1.5.0,<2.0.0",
+./workflows-HITL_concierge/pyproject.toml:    "google-adk>=1.5.0,<2.0.0",
+./podcast_transcript_agent/uv.lock:name = "google-adk"
+./podcast_transcript_agent/uv.lock:sdist = { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/google-adk/google_adk-1.32.0.tar.gz", hash = "sha256:539df330a695d8ae5dc1bc3f1155ef03c6c620620cd0b690b8d47865e722e51c" }
+./podcast_transcript_agent/uv.lock:    { url = "https://us-python.pkg.dev/artifact-foundry-prod/ah-3p-staging-python/google-adk/google_adk-1.32.0-py3-none-any.whl", hash = "sha256:cee8e8bd1d869f7e01ba3e5aac44b255f70ee3f9bb78cb50b3253ce605703b0d" },
+./podcast_transcript_agent/uv.lock:    { name = "google-adk" },
+./podcast_transcript_agent/uv.lock:    { name = "google-adk", specifier = ">=1.31.0" },
+./podcast_transcript_agent/pyproject.toml:    "google-adk>=1.31.0",
+./auto-insurance-agent/uv.lock:    { name = "google-adk" },
+./auto-insurance-agent/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./auto-insurance-agent/uv.lock:    { name = "google-adk", specifier = ">=1.5.0,<2.0.0" },
+./auto-insurance-agent/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.0.0" },
+./auto-insurance-agent/uv.lock:name = "google-adk"
+./auto-insurance-agent/uv.lock:    { name = "google-adk" },
+./auto-insurance-agent/pyproject.toml:    "google-adk>=1.5.0,<2.0.0",
+./auto-insurance-agent/pyproject.toml:    "google-adk[eval]>=1.0.0",
+./auto-insurance-agent/deployment/deploy.py:        "google-adk>=1.5.0,<2.0.0",
+./customer-service/uv.lock:    { name = "google-adk" },
+./customer-service/uv.lock:    { name = "google-adk", specifier = ">=1.0.0" },
+./customer-service/uv.lock:name = "google-adk"
+./customer-service/uv.lock:    { name = "google-adk" },
+./customer-service/pyproject.toml:    "google-adk>=1.0.0",
+./short-movie-agents/uv.lock:name = "google-adk"
+./short-movie-agents/uv.lock:    { name = "google-adk" },
+./short-movie-agents/uv.lock:    { name = "google-adk", specifier = ">=1.31.0,<2.0.0" },
+./short-movie-agents/GEMINI.md:├── requirements.txt            # Project's Python dependencies (e.g., google-adk, litellm)
+./short-movie-agents/pyproject.toml:    "google-adk>=1.31.0,<2.0.0",
+./medical-pre-authorization/uv.lock:name = "google-adk"
+./medical-pre-authorization/uv.lock:    { name = "google-adk" },
+./medical-pre-authorization/uv.lock:    { name = "google-adk" },
+./medical-pre-authorization/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./medical-pre-authorization/uv.lock:    { name = "google-adk", specifier = ">=1.13.0,<2.0.0" },
+./medical-pre-authorization/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.5.0" },
+./medical-pre-authorization/pyproject.toml:    "google-adk>=1.13.0,<2.0.0",
+./medical-pre-authorization/pyproject.toml:    "google-adk[eval]>=1.5.0",
+./medical-pre-authorization/deployment/deploy.py:            "google-adk (>=1.13.0,<2.0.0)",
+./claim-adjudication-agent/uv.lock:    { name = "google-adk" },
+./claim-adjudication-agent/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./claim-adjudication-agent/uv.lock:    { name = "google-adk", specifier = ">=1.31.1" },
+./claim-adjudication-agent/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.31.1" },
+./claim-adjudication-agent/uv.lock:name = "google-adk"
+./claim-adjudication-agent/uv.lock:    { name = "google-adk" },
+./claim-adjudication-agent/pyproject.toml:    "google-adk>=1.31.1",
+./claim-adjudication-agent/pyproject.toml:    "google-adk[eval]>=1.31.1",
+./claim-adjudication-agent/deployment/deploy.py:            "google-adk>=1.31.1",
+./travel-concierge/uv.lock:name = "google-adk"
+./travel-concierge/uv.lock:    { name = "google-adk" },
+./travel-concierge/uv.lock:name = "openinference-instrumentation-google-adk"
+./travel-concierge/uv.lock:    { name = "google-adk" },
+./travel-concierge/uv.lock:    { name = "openinference-instrumentation-google-adk" },
+./travel-concierge/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./travel-concierge/uv.lock:    { name = "google-adk", specifier = ">=1.31.0,<2.0.0" },
+./travel-concierge/uv.lock:    { name = "openinference-instrumentation-google-adk", marker = "python_full_version >= '3.11' and python_full_version < '3.14'", specifier = ">=0.1.0" },
+./travel-concierge/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.18.0,<2.0.0" },
+./travel-concierge/pyproject.toml:    "google-adk>=1.31.0,<2.0.0",
+./travel-concierge/pyproject.toml:    "openinference-instrumentation-google-adk>=0.1.0; python_version >= '3.11' and python_version < '3.14'",
+./travel-concierge/pyproject.toml:    "google-adk[eval]>=1.18.0,<2.0.0",
+./travel-concierge/deployment/deploy.py:            "google-adk (>=1.31.0,<2.0.0)",
+./travel-concierge/deployment/deploy.py:            "openinference-instrumentation-google-adk>=0.1.0; python_version >= '3.11' and python_version < '3.14'",
+./software-bug-assistant/uv.lock:name = "google-adk"
+./software-bug-assistant/uv.lock:    { name = "google-adk" },
+./software-bug-assistant/uv.lock:    { name = "google-adk", specifier = ">=1.8.0" },
+./software-bug-assistant/pyproject.toml:    "google-adk>=1.8.0",
+./safety-plugins/uv.lock:name = "google-adk"
+./safety-plugins/uv.lock:    { name = "google-adk" },
+./safety-plugins/uv.lock:    { name = "google-adk" },
+./safety-plugins/uv.lock:    { name = "google-adk", specifier = ">=1.7.0" },
+./safety-plugins/pyproject.toml:    "google-adk>=1.7.0",
+./brand-aligner/uv.lock:    { name = "google-adk" },
+./brand-aligner/uv.lock:    { name = "google-adk", extra = ["eval"] },
+./brand-aligner/uv.lock:    { name = "google-adk", specifier = "==1.31.1" },
+./brand-aligner/uv.lock:    { name = "google-adk", extras = ["eval"], specifier = ">=1.0.0" },
+./brand-aligner/uv.lock:name = "google-adk"
+./brand-aligner/uv.lock:    { name = "google-adk" },
+./brand-aligner/pyproject.toml:  "google-adk==1.31.1",
+./brand-aligner/pyproject.toml:    "google-adk[eval]>=1.0.0",
+./brand-aligner/deployment/deploy.py:        "google-adk==1.31.1",
+./deep-search/uv.lock:    { name = "google-adk" },
+./deep-search/uv.lock:    { name = "google-adk", specifier = ">=1.8.0" },
+./deep-search/uv.lock:name = "google-adk"
+./deep-search/pyproject.toml:    "google-adk>=1.8.0",
