@@ -9,19 +9,13 @@ RUN pip install --no-cache-dir uv==0.8.13
 WORKDIR /app
 
 # Install all project dependencies into the system Python.
-# We copy pyproject.toml + app/ first (app/ is needed because the project
-# is defined as a package in pyproject.toml and must be installable).
-# uv pip install --system targets /usr/local/lib/python3.11/ directly,
-# making packages available to KFP's executor without activating a venv.
+# We copy pyproject.toml, README.md, and the package directory first to cache this layer.
 COPY pyproject.toml README.md uv.lock* ./
-RUN uv pip install --system --no-cache .
+COPY froyo_product_analysis/ ./froyo_product_analysis/
+RUN uv pip install --system --no-cache-dir .
 
-# Copy the project files
+# Copy the rest of the project files
 COPY . .
-
-# Upgrade pip and install the package and its dependencies
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir .
 
 # Expose the default Cloud Run port
 EXPOSE 8080
