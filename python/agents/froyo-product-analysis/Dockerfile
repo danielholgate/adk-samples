@@ -3,6 +3,9 @@ FROM python:3.12-slim
 # Prevents Python from buffering stdout and stderr
 ENV PYTHONUNBUFFERED=1
 
+# Install uv for fast dependency resolution (pinned version for reproducibility)
+RUN pip install --no-cache-dir uv==0.8.13
+
 WORKDIR /app
 
 # Install all project dependencies into the system Python.
