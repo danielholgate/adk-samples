@@ -135,3 +135,9 @@ To containerize and deploy the agent to Google Cloud Run:
      --allow-unauthenticated \
      --set-env-vars="AGENT_MODEL=gemini-2.5-flash,GOOGLE_CLOUD_PROJECT=YOUR_PROJECT_ID,DATAPROC_REGION=us-central1,GCS_BUCKET_FOR_SPARK=YOUR_BUCKET_NAME"
    ```
+
+   or
+
+   ```
+   uvx --from google-adk>=2.0.0 adk deploy cloud_run --project=cloud-summit-data-analytics --region=us-central1 --service_name=froyo-agent --with_ui ./froyo_product_analysis -- --service-account=769357427691-compute@developer.gserviceaccount.com
+   ```
