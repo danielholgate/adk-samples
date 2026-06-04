@@ -1,6 +1,6 @@
 # Froyo Product Analysis Agent (ADK)
 
-A specialized agent developed using the **Google Python Agent Development Kit (Python ADK)** to serve as a Product Analysis Assistant for **Froyo**, a premium frozen yogurt brand. The agent 
+A specialized agent developed using the **Google Python Agent Development Kit (Python ADK)** to serve as a Product Analysis Assistant for **Froyo**, a premium frozen yogurt brand.  
 
 This agent assists analysts in understanding ingredients and product analysis using a **Dataplex (Knowledge Catalog) MCP Server**, querying transaction records via **BigQuery**, launching batch analytics jobs on **Dataproc (Spark)**, and rendering interactive performance charts via **Plotly**. 
 
@@ -43,7 +43,7 @@ GCS_BUCKET_FOR_SPARK="froyo-analytics-lake"
 ```
 
 ## Execution & Data Processing Rules
-- **CRITICAL RULE - Structured Specs**: The semantic and structured information extracted from the PDFs is available in a BigQuery dataset named `cloud_summits_pdfs` (referred to as the Knowledge Catalog).
+- **CRITICAL RULE - Structured Specs**: The semantic and structured information extracted from the PDFs is available in a BigQuery dataset named `cloud_summits_pdfs`
 - **CRITICAL RULE - Customer Data**: Existing Froyo customer data resides in BigQuery in the dataset `cloud_summit_pdfs`. When you are referencing a dataset, ensure you are using it with the project ID (`cloud-summit-data-analytics`) and namespace prefix `acai_dataset`. For example, to query order table in this dataset you should use `cloud-summit-data-analytics.acai_dataset.cloud_summit_pdfs.orders`.
 - **CRITICAL RULE - Data Joins between BigQuery dataset and Iceberg dataset**: ANY task requiring a join or integration between the BigQuery datasets `cloud_summit_pdfs` of the PDF data and the `cloud_summit_pdfs` of the customer data MUST be executed using **Spark Notebooks**.
 - **CRITICAL RULE - Notebook Kernel**: Every Spark notebook utilized MUST exclusively be configured to run on the Serverless Session template `iceberg-federation-template` as its kernel.
@@ -127,3 +127,22 @@ You can run the agent inside the ADK Web UI:
 adk web .
 ```
 Then select `froyo_product_analysis_agent` from the dropdown.
+
+### 5. Deploying to Google Cloud Run
+
+To containerize and deploy the agent to Google Cloud Run:
+
+1. **Build and publish the container image to Artifact Registry**:
+   ```bash
+   gcloud builds submit --tag gcr.io/YOUR_PROJECT_ID/froyo-product-analysis
+   ```
+
+2. **Deploy to Cloud Run**:
+   ```bash
+   gcloud run deploy froyo-product-analysis \
+     --image gcr.io/YOUR_PROJECT_ID/froyo-product-analysis \
+     --platform managed \
+     --region us-central1 \
+     --allow-unauthenticated \
+     --set-env-vars="AGENT_MODEL=gemini-2.5-flash,GOOGLE_CLOUD_PROJECT=YOUR_PROJECT_ID,DATAPROC_REGION=us-central1,GCS_BUCKET_FOR_SPARK=YOUR_BUCKET_NAME"
+   ```

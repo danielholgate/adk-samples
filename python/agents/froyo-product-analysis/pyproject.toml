@@ -1,5 +1,5 @@
 [project]
-name = "froyo-product-analysis"
+name = "froyo_product_analysis"
 version = "0.1.0"
 description = "A product analysis agent for Froyo, a frozen yoghurt brand, utilizing BigQuery, Dataplex (Knowledge Catalog) MCP server, and Dataproc."
 authors = [
