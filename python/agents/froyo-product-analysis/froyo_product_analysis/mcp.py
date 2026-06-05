@@ -32,14 +32,29 @@ def get_dataplex_mcp_toolset():
         from mcp import StdioServerParameters
 
         import pathlib
+        import site
         package_parent_dir = str(pathlib.Path(__file__).parent.parent.resolve())
+
+        site_paths = []
+        try:
+            site_paths.extend(site.getsitepackages())
+        except AttributeError:
+            pass
+        try:
+            user_site = site.getusersitepackages()
+            if user_site:
+                site_paths.append(user_site)
+        except AttributeError:
+            pass
+
+        all_paths = [package_parent_dir] + site_paths
 
         env = dict(os.environ)
         existing_pythonpath = env.get("PYTHONPATH", "")
         if existing_pythonpath:
-            env["PYTHONPATH"] = f"{package_parent_dir}{os.pathsep}{existing_pythonpath}"
-        else:
-            env["PYTHONPATH"] = package_parent_dir
+            all_paths.append(existing_pythonpath)
+
+        env["PYTHONPATH"] = os.pathsep.join(all_paths)
 
         connection_params = StdioServerParameters(
             command=sys.executable,
