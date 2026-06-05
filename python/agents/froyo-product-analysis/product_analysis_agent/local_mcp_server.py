@@ -29,7 +29,7 @@ client = dataplex_v1.CatalogServiceClient()
 
 @mcp.tool()
 def search_entries(query: str, project_id: str = "cloud-summit-data-analytics", location: str = "global") -> str:
-    """Searches for entries matching a query within the Dataplex Universal Catalog.
+    """Searches for entries in the Knowledge Catalog matching a set of characteristics
 
     Args:
         query: Required. The query string to search for.
@@ -50,7 +50,7 @@ def search_entries(query: str, project_id: str = "cloud-summit-data-analytics", 
 
 @mcp.tool()
 def lookup_entry(entry: str, project_id: str = "cloud-summit-data-analytics", location: str = "global") -> str:
-    """Looks up an entry by either resource name or fully qualified name in the Dataplex Universal Catalog.
+    """Looks up an entry by either resource name or fully qualified name in the Knowledge Catalog.
 
     Args:
         entry: Required. The resource name of the Entry to lookup.
@@ -66,6 +66,7 @@ def lookup_entry(entry: str, project_id: str = "cloud-summit-data-analytics", lo
         logger.error(f"Error in lookup_entry: {e}")
         return f"Error: {e}"
 
+'''
 @mcp.tool()
 def lookup_context(entry: str, project_id: str = "cloud-summit-data-analytics", location: str = "global") -> str:
     """Looks up the context (lineage and glossary) of a data asset or entry in the Dataplex Universal Catalog.
@@ -83,6 +84,7 @@ def lookup_context(entry: str, project_id: str = "cloud-summit-data-analytics", 
     except Exception as e:
         logger.error(f"Error in lookup_context: {e}")
         return f"Error: {e}"
+'''
 
 if __name__ == "__main__":
      mcp.run()   

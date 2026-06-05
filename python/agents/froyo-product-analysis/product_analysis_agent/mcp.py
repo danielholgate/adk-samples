@@ -60,7 +60,7 @@ def get_dataplex_mcp_toolset():
         connection_params = StdioConnectionParams(
             server_params=StdioServerParameters(
                 command=sys.executable,
-                args=["-m", "froyo_product_analysis.local_mcp_server"],
+                args=["-m", "product_analysis_agent.local_mcp_server"],
                 env=env,
             ),
             timeout=20.0,
