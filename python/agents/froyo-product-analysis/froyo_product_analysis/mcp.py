@@ -62,11 +62,7 @@ def get_dataplex_mcp_toolset():
                 allowed_tool_names = {
                     "search_entries",
                     "lookup_entry",
-                    "lookup_context",
-                    "get_data_product",
-                    "get_data_asset",
-                    "list_data_products",
-                    "list_data_assets",
+                    "lookup_context"
                 }
                 tools = [t for t in tools if getattr(t, "name", getattr(t, "__name__", "")) in allowed_tool_names]
 
