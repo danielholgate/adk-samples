@@ -60,7 +60,7 @@ root_agent = Agent(
     model=AGENT_MODEL,
     name="froyo_product_analysis_agent",
     description=(
-        "Froyo Frozen Yogurt product analytics agent. Accesses BigQuery catalog data, "
+        "Froyo Frozen Yogurt product analytics agent. Accesses BigQuery data, dataplex catalog, "
         "runs Spark jobs on Dataproc, and renders interactive graphs."
     ),
     instruction=FROYO_AGENT_INSTRUCTIONS,
