@@ -12,50 +12,43 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""MCP Toolset configuration for Froyo Product Analysis Agent via Google Cloud Agent Registry."""
+"""Local MCP Toolset configuration for Froyo Product Analysis Agent."""
 
 import functools
 import inspect
 import logging
 import os
-from google.adk.integrations.agent_registry import AgentRegistry
-from google.auth import default
+import sys
 
 logger = logging.getLogger(__name__)
 
 
 def get_dataplex_mcp_toolset():
     """
-    Connects to the Dataplex MCP server via Google Cloud Agent Registry.
+    Connects to the local Dataplex MCP server via Stdio.
     """
-    mcp_server_name = os.environ.get("MCP_SERVER_NAME")
-    if not mcp_server_name:
-        logger.info(
-            "MCP_SERVER_NAME not configured. Skipping MCP toolset registration."
-        )
-        return None
-
     try:
-        # Use credentials from the environment default auth
-        credentials, default_project_id = default()
-        project_id = os.environ.get("GOOGLE_CLOUD_PROJECT", default_project_id)
-        location = os.environ.get("MCP_SERVER_LOCATION", "global")
+        from google.adk.tools.mcp_tool.mcp_toolset import McpToolset
+        from mcp import StdioServerParameters
 
-        if not project_id:
-            logger.error("Failed to determine Google Cloud Project ID.")
-            return None
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        server_script = os.path.join(current_dir, "local_mcp_server.py")
+        python_exe = sys.executable
 
-        registry = AgentRegistry(project_id=project_id, location=location)
-        mcp_server_path = f"projects/{project_id}/locations/{location}/mcpServers/{mcp_server_name}"
-        logger.info(f"Retrieving MCP Toolset for server: {mcp_server_path}")
+        connection_params = StdioServerParameters(
+            command=python_exe,
+            args=[server_script],
+            env=dict(os.environ),
+        )
 
-        mcp_toolset = registry.get_mcp_toolset(mcp_server_path)
+        logger.info(f"Connecting to local Dataplex MCP server: {python_exe} {server_script}")
+        mcp_toolset = McpToolset(connection_params=connection_params)
 
         # Wrap get_tools with logging to indicate connection status
         original_get_tools = mcp_toolset.get_tools
 
         async def logged_get_tools(*args, **kwargs):
-            logger.info(f"Establishing communication with Dataplex MCP server at {mcp_server_path}...")
+            logger.info("Establishing communication with local Dataplex MCP server...")
             try:
                 tools = await original_get_tools(*args, **kwargs)
                 
