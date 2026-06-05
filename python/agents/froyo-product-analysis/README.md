@@ -168,7 +168,7 @@ gcloud projects add-iam-policy-binding cloud-summit-data-analytics \
 
 gcloud iam service-accounts add-iam-policy-binding \
     769357427691-compute@developer.gserviceaccount.com \
-    --member="user:admin@danielholgate.altostrat.com" \
+    --member="user:xxx" \
     --role="roles/iam.serviceAccountUser"
 
 gcloud projects add-iam-policy-binding cloud-summit-data-analytics \
