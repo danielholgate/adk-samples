@@ -23,9 +23,9 @@ from dotenv import load_dotenv
 logger = logging.getLogger(__name__)
 
 from google.adk.agents import Agent
-from froyo_product_analysis.mcp import get_dataplex_mcp_toolset
-from froyo_product_analysis.prompt import FROYO_AGENT_INSTRUCTIONS
-from froyo_product_analysis.tools import (
+from product_analysis_agent.mcp import get_dataplex_mcp_toolset
+from product_analysis_agent.prompt import FROYO_AGENT_INSTRUCTIONS
+from product_analysis_agent.tools import (
     execute_bigquery_query,
     execute_spark_notebook,
     execute_visualization_code,

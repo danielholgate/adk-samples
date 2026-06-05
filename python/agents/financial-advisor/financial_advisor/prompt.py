@@ -28,7 +28,6 @@ My main goal is to provide you with comprehensive financial advice by guiding yo
 We'll work together to analyze market tickers, develop effective trading strategies, define clear execution plans,
 and thoroughly evaluate your overall risk.
 
-
 Remember that at each step you can always ask to “show me the detailed result as markdown”.
 
 Ready to get started?

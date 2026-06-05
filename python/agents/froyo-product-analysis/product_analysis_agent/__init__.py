@@ -14,6 +14,6 @@
 
 """Froyo Product Analysis Agent package."""
 
-from froyo_product_analysis.agent import root_agent
+from product_analysis_agent.agent import root_agent
 
 __all__ = ["root_agent"]
