@@ -24,7 +24,7 @@ from google.cloud import dataplex_v1
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("local_mcp_server")
 
-mcp = FastMCP("Local Dataplex Catalog Server")
+mcp = FastMCP(name="Local Dataplex Catalog Server",host="0.0.0.0",port=8081)
 client = dataplex_v1.CatalogServiceClient()
 
 @mcp.tool()
