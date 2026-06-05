@@ -37,7 +37,7 @@ def get_dataplex_mcp_toolset():
         # Use credentials from the environment default auth
         credentials, default_project_id = default()
         project_id = os.environ.get("GOOGLE_CLOUD_PROJECT", default_project_id)
-        location = os.environ.get("GOOGLE_CLOUD_LOCATION", "global")
+        location = os.environ.get("MCP_SERVER_LOCATION", "global")
 
         if not project_id:
             logger.error("Failed to determine Google Cloud Project ID.")
