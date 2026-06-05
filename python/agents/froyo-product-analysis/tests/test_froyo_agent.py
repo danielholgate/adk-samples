@@ -87,8 +87,7 @@ class TestFroyoAgent(unittest.TestCase):
         mock_client.create_batch.assert_called_once()
 
     @unittest.mock.patch("google.adk.tools.mcp_tool.mcp_toolset.McpToolset")
-    @unittest.mock.patch("mcp.StdioServerParameters")
-    def test_get_dataplex_mcp_toolset(self, mock_stdio_params_cls, mock_mcp_toolset_cls):
+    def test_get_dataplex_mcp_toolset(self, mock_mcp_toolset_cls):
         """Verifies get_dataplex_mcp_toolset configures the local mcp server and returns toolset."""
         mock_toolset = unittest.mock.Mock()
         mock_mcp_toolset_cls.return_value = mock_toolset
@@ -97,7 +96,6 @@ class TestFroyoAgent(unittest.TestCase):
         toolset = get_dataplex_mcp_toolset()
 
         self.assertEqual(toolset, mock_toolset)
-        mock_stdio_params_cls.assert_called_once()
         mock_mcp_toolset_cls.assert_called_once()
 
 

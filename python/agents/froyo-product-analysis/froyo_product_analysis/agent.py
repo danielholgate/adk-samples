@@ -52,9 +52,9 @@ agent_tools = [
     execute_visualization_code,
 ]
 
-mcp_toolset = get_dataplex_mcp_toolset()
-if mcp_toolset:
-    agent_tools.append(mcp_toolset)
+# mcp_toolset = get_dataplex_mcp_toolset()
+# if mcp_toolset:
+#     agent_tools.append(mcp_toolset)
 
 root_agent = Agent(
     model=AGENT_MODEL,
