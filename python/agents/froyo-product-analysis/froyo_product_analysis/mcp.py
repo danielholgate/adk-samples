@@ -48,6 +48,24 @@ def get_dataplex_mcp_toolset():
         logger.info(f"Retrieving MCP Toolset for server: {mcp_server_path}")
 
         mcp_toolset = registry.get_mcp_toolset(mcp_server_path)
+
+        # Wrap get_tools with logging to indicate connection status
+        original_get_tools = mcp_toolset.get_tools
+
+        async def logged_get_tools(*args, **kwargs):
+            logger.info(f"Establishing communication with Dataplex MCP server at {mcp_server_path}...")
+            try:
+                tools = await original_get_tools(*args, **kwargs)
+                logger.info(
+                    f"Successfully established communication with Dataplex MCP server. "
+                    f"Registered {len(tools)} tools."
+                )
+                return tools
+            except Exception as e:
+                logger.error(f"Failed to establish communication with Dataplex MCP server: {e}")
+                raise e
+
+        mcp_toolset.get_tools = logged_get_tools
         return mcp_toolset
     except Exception as e:
         logger.error(f"Failed to connect to MCP server or retrieve tools: {e}")

@@ -86,7 +86,7 @@ class TestFroyoAgent(unittest.TestCase):
         self.assertEqual(result_data["template_used"], "iceberg-federation-template")
         mock_client.create_batch.assert_called_once()
 
-    @unittest.mock.patch.dict("os.environ", {})
+    @unittest.mock.patch.dict("os.environ", {}, clear=True)
     def test_get_dataplex_mcp_toolset_not_configured(self):
         """Verifies get_dataplex_mcp_toolset returns None when MCP_SERVER_NAME is not configured."""
         from froyo_product_analysis.mcp import get_dataplex_mcp_toolset
