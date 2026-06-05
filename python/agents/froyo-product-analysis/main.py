@@ -54,6 +54,7 @@ app_args = {
     "web": web_interface_enabled,
     "trace_to_cloud": trace_to_cloud,
     "otel_to_cloud": otel_to_cloud,
+    "extra_plugins": ["froyo_product_analysis.plugins.reflect_retry_plugin"],
 }
 
 # Only include session_service_uri if it's provided, otherwise default to in-memory session service

@@ -30,6 +30,7 @@ from google.adk.sessions import InMemorySessionService
 from google.genai import types
 
 from froyo_product_analysis.agent import root_agent
+from froyo_product_analysis.plugins import reflect_retry_plugin
 
 
 async def async_main():
@@ -53,6 +54,7 @@ async def async_main():
         agent=root_agent,
         artifact_service=artifacts_service,
         session_service=session_service,
+        plugins=[reflect_retry_plugin],
     )
 
     print("\nAsk Froyo Product Analysis Agent a question! (e.g. 'What is the relationship between the sales data and the ingredients catalog?')")
