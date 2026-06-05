@@ -31,17 +31,23 @@ def get_dataplex_mcp_toolset():
         from google.adk.tools.mcp_tool.mcp_toolset import McpToolset
         from mcp import StdioServerParameters
 
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        server_script = os.path.join(current_dir, "local_mcp_server.py")
-        python_exe = sys.executable
+        import pathlib
+        package_parent_dir = str(pathlib.Path(__file__).parent.parent.resolve())
+
+        env = dict(os.environ)
+        existing_pythonpath = env.get("PYTHONPATH", "")
+        if existing_pythonpath:
+            env["PYTHONPATH"] = f"{package_parent_dir}{os.pathsep}{existing_pythonpath}"
+        else:
+            env["PYTHONPATH"] = package_parent_dir
 
         connection_params = StdioServerParameters(
-            command=python_exe,
-            args=[server_script],
-            env=dict(os.environ),
+            command=sys.executable,
+            args=["-m", "froyo_product_analysis.local_mcp_server"],
+            env=env,
         )
 
-        logger.info(f"Connecting to local Dataplex MCP server: {python_exe} {server_script}")
+        logger.info("Connecting to local Dataplex MCP server...")
         mcp_toolset = McpToolset(connection_params=connection_params)
 
         # Wrap get_tools with logging to indicate connection status
