@@ -29,6 +29,7 @@ def get_dataplex_mcp_toolset():
     """
     try:
         from google.adk.tools.mcp_tool.mcp_toolset import McpToolset
+        from google.adk.tools.mcp_tool.mcp_session_manager import StdioConnectionParams
         from mcp import StdioServerParameters
 
         import pathlib
@@ -56,10 +57,13 @@ def get_dataplex_mcp_toolset():
 
         env["PYTHONPATH"] = os.pathsep.join(all_paths)
 
-        connection_params = StdioServerParameters(
-            command=sys.executable,
-            args=["-m", "froyo_product_analysis.local_mcp_server"],
-            env=env,
+        connection_params = StdioConnectionParams(
+            server_params=StdioServerParameters(
+                command=sys.executable,
+                args=["-m", "froyo_product_analysis.local_mcp_server"],
+                env=env,
+            ),
+            timeout=20.0,
         )
 
         logger.info("Connecting to local Dataplex MCP server...")

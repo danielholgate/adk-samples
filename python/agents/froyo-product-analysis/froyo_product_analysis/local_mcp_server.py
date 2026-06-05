@@ -24,7 +24,7 @@ from google.cloud import dataplex_v1
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("local_mcp_server")
 
-mcp = FastMCP(name="Local Dataplex Catalog Server",host="0.0.0.0",port=8081)
+mcp = FastMCP(name="Local Dataplex Catalog Server")
 client = dataplex_v1.CatalogServiceClient()
 
 @mcp.tool()
@@ -85,4 +85,4 @@ def lookup_context(entry: str, project_id: str = "cloud-summit-data-analytics", 
         return f"Error: {e}"
 
 if __name__ == "__main__":
-     mcp.run(transport="sse")   
+     mcp.run()   
