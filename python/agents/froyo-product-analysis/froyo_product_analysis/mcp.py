@@ -134,12 +134,12 @@ def get_dataplex_mcp_toolset():
                         wrapped_tools.append(sync_wrapper)
                 return wrapped_tools
             except Exception as e:
-                logger.error(f"Failed to establish communication with Dataplex MCP server: {e}")
+                logger.error(f"Failed to establish communication with Dataplex MCP server: {e}", exc_info=True)
                 raise e
 
         mcp_toolset.get_tools = logged_get_tools
         return mcp_toolset
     except Exception as e:
-        logger.error(f"Failed to connect to MCP server or retrieve tools: {e}")
+        logger.error(f"Failed to connect to MCP server or retrieve tools: {e}", exc_info=True)
         logger.warning("Continuing without MCP tools.")
         return None

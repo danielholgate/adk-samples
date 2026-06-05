@@ -14,10 +14,13 @@
 
 """Froyo Product Analysis Agent definition."""
 
+import logging
 import os
 import pathlib
 import sys
 from dotenv import load_dotenv
+
+logger = logging.getLogger(__name__)
 
 from google.adk.agents import Agent
 from froyo_product_analysis.mcp import get_dataplex_mcp_toolset
@@ -54,7 +57,10 @@ agent_tools = [
 
 mcp_toolset = get_dataplex_mcp_toolset()
 if mcp_toolset:
+    logger.info("Dataplex MCP toolset successfully registered in agent tools.")
     agent_tools.append(mcp_toolset)
+else:
+    logger.warning("Dataplex MCP toolset is not configured or failed to initialize. Proceeding without MCP tools.")
 
 root_agent = Agent(
     model=AGENT_MODEL,
