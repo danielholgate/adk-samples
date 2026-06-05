@@ -196,7 +196,7 @@ async def execute_visualization_code(
     tool_context: ToolContext,
     chart_type: str = "plotly",
     filename: str = "froyo_chart.html",
-) -> str:
+) -> Any:
     """Executes Python code containing a Plotly/Matplotlib definition and saves the result as an ADK artifact.
 
     The code MUST assign the resulting chart object to a variable named 'fig'.
@@ -209,7 +209,7 @@ async def execute_visualization_code(
         filename: Target name for the chart file.
 
     Returns:
-        Status message containing the registered artifact ID.
+        The generated chart Part object (if matplotlib) or a status message containing the registered artifact ID.
     """
     try:
         local_vars: dict[str, Any] = {
@@ -248,10 +248,14 @@ async def execute_visualization_code(
 
         # Save to ADK Artifact Service
         artifact_id = filename.replace(".", "_")
+        part = types.Part.from_bytes(data=artifact_data, mime_type=mime_type)
         await tool_context.save_artifact(
             artifact_id,
-            types.Part.from_bytes(data=artifact_data, mime_type=mime_type),
+            part,
         )
+
+        if chart_type == "matplotlib":
+            return part
 
         return f"Successfully generated {chart_type} chart. Saved as artifact ID: {artifact_id}"
     except Exception as e:
