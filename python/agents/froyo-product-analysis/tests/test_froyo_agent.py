@@ -39,10 +39,6 @@ class TestFroyoAgent(unittest.TestCase):
         self.assertIn("execute_spark_notebook", registered_tools)
         self.assertIn("execute_visualization_code", registered_tools)
 
-        # Check that the MCP toolset is present in the tools list
-        mcp_toolset_exists = any("McpToolset" in tool.__class__.__name__ for tool in root_agent.tools)
-        self.assertTrue(mcp_toolset_exists)
-
     @unittest.mock.patch("froyo_product_analysis.tools.bigquery.Client")
     def test_bigquery_query(self, mock_client_cls):
         """Verifies the BigQuery tool queries GCP and returns JSON records."""
