@@ -11,7 +11,6 @@ This agent assists analysts in understanding ingredients and product analysis by
 ```mermaid
 graph TD
     User([User Request]) --> Agent[Froyo Product Analysis Agent]
-    Agent --> MCP[Dataplex Knowledge Catalog MCP Server]
     Agent --> BQ[BigQuery Client]
     Agent --> DP[Dataproc Serverless Batch Client]
     Agent --> Viz[Plotly & Matplotlib Visualizer]
@@ -19,10 +18,9 @@ graph TD
 ```
 
 ### Key Components
-1. **Dataplex (Knowledge Catalog) MCP Server**: Uses the Model Context Protocol (MCP) stdio connection to dynamically discover data catalog schemas, assets, business glossary terms, and lineage records.
-2. **BigQuery Integration**: Formulates and executes SQL queries against product, transaction sales, and ingredient/recipe tables.
-3. **Dataproc Serverless Spark Notebook Executor**: Runs PySpark notebooks on serverless Dataproc sessions (using the Iceberg federation template kernel) to perform federated joins and data science analysis.
-4. **Interactive Plotly Visualizer**: Compiles and executes Plotly chart logic, exporting charts as rich HTML artifacts.
+1. **BigQuery Integration**: Formulates and executes SQL queries against product, transaction sales, and ingredient/recipe tables.
+2. **Dataproc Serverless Spark Notebook Executor**: Runs PySpark notebooks on serverless Dataproc sessions (using the Iceberg federation template kernel) to perform federated joins and data science analysis.
+3. **Interactive Plotly Visualizer**: Compiles and executes Plotly chart logic, exporting charts as rich HTML artifacts.
 
 ## ⚙️ Configuration Parameters
 Configuration is managed via environment variables. Copy `.env.example` to `.env` and fill in the values:
@@ -141,3 +139,31 @@ To containerize and deploy the agent to Google Cloud Run:
    ```
    uvx --from google-adk>=2.0.0 adk deploy cloud_run --project=cloud-summit-data-analytics --region=us-central1 --service_name=froyo-agent --with_ui ./froyo_product_analysis -- --service-account=
    ```
+
+   Need to grant service account for MCP server
+   gcloud projects add-iam-policy-binding <projectID> \
+    --member="serviceAccount:XXXXX-compute@developer.gserviceaccount.com" \
+    --role="roles/agentregistry.viewer"
+
+gcloud projects add-iam-policy-binding cloud-summit-data-analytics \
+    --member="serviceAccount:XXXX-compute@developer.gserviceaccount.com" \
+    --role="roles/aiplatform.user"
+
+gcloud projects add-iam-policy-binding cloud-summit-data-analytics \
+    --member="serviceAccount:XXX-compute@developer.gserviceaccount.com" \
+    --role="roles/bigquery.jobUser"
+
+gcloud projects add-iam-policy-binding cloud-summit-data-analytics \
+    --member="serviceAccount:769357427691-compute@developer.gserviceaccount.com" \
+    --role="roles/dataproc.serverless.editor"
+
+gcloud projects add-iam-policy-binding cloud-summit-data-analytics \
+    --member="serviceAccount:769357427691-compute@developer.gserviceaccount.com" \
+    --role="roles/dataproc.editor"
+
+gcloud projects add-iam-policy-binding cloud-summit-data-analytics \
+    --member="serviceAccount:769357427691-compute@developer.gserviceaccount.com" \
+    --role="roles/iam.serviceAccountUser"
+
+MCP Server
+gcloud beta services enable dataplex.googleapis.com

@@ -44,7 +44,7 @@ load_dotenv()
 # ==============================================================================
 
 # Google Cloud Project ID for running BigQuery and Dataproc.
-GOOGLE_CLOUD_PROJECT = os.getenv("GOOGLE_CLOUD_PROJECT", "froyo-analytics-prod")
+GOOGLE_CLOUD_PROJECT = os.getenv("GOOGLE_CLOUD_PROJECT", "cloud-summit-data-analytics")
 
 # Dataproc settings for running Spark analytics jobs.
 DATAPROC_REGION = os.getenv("DATAPROC_REGION", "us-central1")
