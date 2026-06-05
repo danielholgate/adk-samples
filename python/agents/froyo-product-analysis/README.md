@@ -21,7 +21,7 @@ graph TD
 1. **BigQuery Integration**: Formulates and executes SQL queries against product, transaction sales, and ingredient/recipe tables.
 2. **Dataproc Serverless Spark Notebook Executor**: Runs PySpark notebooks on serverless Dataproc sessions (using the Iceberg federation template kernel) to perform federated joins and data science analysis.
 3. **Interactive Plotly Visualizer**: Compiles and executes Plotly chart logic, exporting charts as rich HTML artifacts.
-4. **Dataplex MCP Server**: Queries Dataplex (Knowledge Catalog) MCP server metadata about tables and datasets. Can discover rich metadata to help discover tables, find schemas, and get additional metadata to answer questions
+4. **Dataplex MCP Server**: Queries Dataplex Catalog (Knowledge Catalog) MCP server for metadata about tables and datasets. Can discover rich metadata to help discover tables, find descriptions, schemas and additional metadata to help choose which tables to query. Critical: Never use the update_data_product_aspects tool
 
 ## ⚙️ Configuration Parameters
 Configuration is managed via environment variables. Copy `.env.example` to `.env` and fill in the values:
