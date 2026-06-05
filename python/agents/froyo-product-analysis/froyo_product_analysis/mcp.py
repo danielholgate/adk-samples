@@ -14,6 +14,8 @@
 
 """MCP Toolset configuration for Froyo Product Analysis Agent via Google Cloud Agent Registry."""
 
+import functools
+import inspect
 import logging
 import os
 from google.adk.integrations.agent_registry import AgentRegistry
@@ -60,7 +62,53 @@ def get_dataplex_mcp_toolset():
                     f"Successfully established communication with Dataplex MCP server. "
                     f"Registered {len(tools)} tools."
                 )
-                return tools
+
+                # Wrap each tool with logging to track executions and exceptions
+                wrapped_tools = []
+                for tool in tools:
+                    tool_name = getattr(tool, "name", getattr(tool, "__name__", str(tool)))
+                    if hasattr(tool, "run_async"):
+                        original_run_async = tool.run_async
+                        async def logged_run_async(self, *w_args, **w_kwargs):
+                            logger.info(f"MCP Tool '{tool_name}' execution started. Inputs: {w_kwargs.get('args') or w_args}")
+                            try:
+                                result = await original_run_async(*w_args, **w_kwargs)
+                                logger.info(f"MCP Tool '{tool_name}' executed successfully.")
+                                logger.debug(f"MCP Tool '{tool_name}' return value: {result}")
+                                return result
+                            except Exception as err:
+                                logger.error(f"MCP Tool '{tool_name}' failed during execution: {err}", exc_info=True)
+                                raise err
+                        import types
+                        tool.run_async = types.MethodType(logged_run_async, tool)
+                        wrapped_tools.append(tool)
+                    elif inspect.iscoroutinefunction(tool):
+                        @functools.wraps(tool)
+                        async def async_wrapper(*w_args, **w_kwargs):
+                            logger.info(f"MCP Tool '{tool_name}' called with args: {w_args}, kwargs: {w_kwargs}")
+                            try:
+                                result = await tool(*w_args, **w_kwargs)
+                                logger.info(f"MCP Tool '{tool_name}' returned successfully.")
+                                logger.debug(f"MCP Tool '{tool_name}' return value: {result}")
+                                return result
+                            except Exception as err:
+                                logger.error(f"MCP Tool '{tool_name}' failed with error: {err}", exc_info=True)
+                                raise err
+                        wrapped_tools.append(async_wrapper)
+                    else:
+                        @functools.wraps(tool)
+                        def sync_wrapper(*w_args, **w_kwargs):
+                            logger.info(f"MCP Tool '{tool_name}' called with args: {w_args}, kwargs: {w_kwargs}")
+                            try:
+                                result = tool(*w_args, **w_kwargs)
+                                logger.info(f"MCP Tool '{tool_name}' returned successfully.")
+                                logger.debug(f"MCP Tool '{tool_name}' return value: {result}")
+                                return result
+                            except Exception as err:
+                                logger.error(f"MCP Tool '{tool_name}' failed with error: {err}", exc_info=True)
+                                raise err
+                        wrapped_tools.append(sync_wrapper)
+                return wrapped_tools
             except Exception as e:
                 logger.error(f"Failed to establish communication with Dataplex MCP server: {e}")
                 raise e
