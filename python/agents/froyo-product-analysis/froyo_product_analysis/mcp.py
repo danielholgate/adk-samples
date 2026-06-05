@@ -60,7 +60,7 @@ def get_dataplex_mcp_toolset():
                 tools = await original_get_tools(*args, **kwargs)
                 logger.info(
                     f"Successfully established communication with Dataplex MCP server. "
-                    f"Registered {len(tools)} tools."
+                    f"Registered {len(tools)} tools: {tools}"
                 )
 
                 # Wrap each tool with logging to track executions and exceptions
