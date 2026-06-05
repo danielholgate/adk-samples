@@ -239,7 +239,7 @@ async def execute_visualization_code(
             mime_type = "image/png"
 
         # Write to local file directory for dev UI usage
-        output_dir = "output"
+        output_dir = "/tmp/output"
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
         filepath = os.path.join(output_dir, filename)
