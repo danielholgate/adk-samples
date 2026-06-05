@@ -154,16 +154,25 @@ gcloud projects add-iam-policy-binding cloud-summit-data-analytics \
     --role="roles/bigquery.jobUser"
 
 gcloud projects add-iam-policy-binding cloud-summit-data-analytics \
-    --member="serviceAccount:769357427691-compute@developer.gserviceaccount.com" \
+    --member="serviceAccount:XXX-compute@developer.gserviceaccount.com" \
     --role="roles/dataproc.serverless.editor"
 
 gcloud projects add-iam-policy-binding cloud-summit-data-analytics \
-    --member="serviceAccount:769357427691-compute@developer.gserviceaccount.com" \
+    --member="serviceAccount:XXX-compute@developer.gserviceaccount.com" \
     --role="roles/dataproc.editor"
 
 gcloud projects add-iam-policy-binding cloud-summit-data-analytics \
-    --member="serviceAccount:769357427691-compute@developer.gserviceaccount.com" \
+    --member="serviceAccount:XXX-compute@developer.gserviceaccount.com" \
     --role="roles/iam.serviceAccountUser"
+
+gcloud iam service-accounts add-iam-policy-binding \
+    XXX-compute@developer.gserviceaccount.com \
+    --member="user:admin@danielholgate.altostrat.com" \
+    --role="roles/iam.serviceAccountUser"
+
+gcloud projects add-iam-policy-binding cloud-summit-data-analytics \
+    --member="serviceAccount:XXX-compute@developer.gserviceaccount.com" \
+    --role="roles/biglake.viewer"  
 
 MCP Server
 gcloud beta services enable dataplex.googleapis.com
