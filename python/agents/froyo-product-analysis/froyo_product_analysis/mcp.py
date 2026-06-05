@@ -58,6 +58,19 @@ def get_dataplex_mcp_toolset():
             logger.info(f"Establishing communication with Dataplex MCP server at {mcp_server_path}...")
             try:
                 tools = await original_get_tools(*args, **kwargs)
+                
+                # Filter to only allow read-only lookup/search tools
+                allowed_tool_names = {
+                    "search_entries",
+                    "lookup_entry",
+                    "lookup_context",
+                    "get_data_product",
+                    "get_data_asset",
+                    "list_data_products",
+                    "list_data_assets",
+                }
+                tools = [t for t in tools if getattr(t, "name", getattr(t, "__name__", "")) in allowed_tool_names]
+
                 tool_names = [getattr(t, "name", getattr(t, "__name__", str(t))) for t in tools]
                 logger.info(
                     f"Successfully established communication with Dataplex MCP server. "
