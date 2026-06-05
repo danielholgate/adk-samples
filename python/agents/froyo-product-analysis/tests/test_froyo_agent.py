@@ -86,3 +86,35 @@ class TestFroyoAgent(unittest.TestCase):
         self.assertEqual(result_data["template_used"], "iceberg-federation-template")
         mock_client.create_batch.assert_called_once()
 
+    @unittest.mock.patch.dict("os.environ", {})
+    def test_get_dataplex_mcp_toolset_not_configured(self):
+        """Verifies get_dataplex_mcp_toolset returns None when MCP_SERVER_NAME is not configured."""
+        from froyo_product_analysis.mcp import get_dataplex_mcp_toolset
+        toolset = get_dataplex_mcp_toolset()
+        self.assertIsNone(toolset)
+
+    @unittest.mock.patch.dict("os.environ", {
+        "MCP_SERVER_NAME": "agentregistry-00000000-0000-0000-25d9-2dd6732c5390",
+        "GOOGLE_CLOUD_PROJECT": "cloud-summit-data-analytics",
+        "GOOGLE_CLOUD_LOCATION": "global"
+    })
+    @unittest.mock.patch("google.auth.default")
+    @unittest.mock.patch("froyo_product_analysis.mcp.AgentRegistry")
+    def test_get_dataplex_mcp_toolset_configured(self, mock_agent_registry_cls, mock_auth_default):
+        """Verifies get_dataplex_mcp_toolset calls AgentRegistry with correct paths and returns toolset."""
+        mock_auth_default.return_value = (None, "cloud-summit-data-analytics")
+        mock_registry = mock_agent_registry_cls.return_value
+        mock_toolset = unittest.mock.Mock()
+        mock_registry.get_mcp_toolset.return_value = mock_toolset
+
+        from froyo_product_analysis.mcp import get_dataplex_mcp_toolset
+        toolset = get_dataplex_mcp_toolset()
+
+        self.assertEqual(toolset, mock_toolset)
+        mock_agent_registry_cls.assert_called_once_with(project_id="cloud-summit-data-analytics", location="global")
+        mock_registry.get_mcp_toolset.assert_called_once_with(
+            "projects/cloud-summit-data-analytics/locations/global/mcpServers/agentregistry-00000000-0000-0000-25d9-2dd6732c5390"
+        )
+
+
+

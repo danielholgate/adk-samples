@@ -20,6 +20,7 @@ import sys
 from dotenv import load_dotenv
 
 from google.adk.agents import Agent
+from froyo_product_analysis.mcp import get_dataplex_mcp_toolset
 from froyo_product_analysis.prompt import FROYO_AGENT_INSTRUCTIONS
 from froyo_product_analysis.tools import (
     execute_bigquery_query,
@@ -45,6 +46,16 @@ os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "True"
 # AGENT DEFINITION
 # ==============================================================================
 
+agent_tools = [
+    execute_bigquery_query,
+    execute_spark_notebook,
+    execute_visualization_code,
+]
+
+mcp_toolset = get_dataplex_mcp_toolset()
+if mcp_toolset:
+    agent_tools.append(mcp_toolset)
+
 root_agent = Agent(
     model=AGENT_MODEL,
     name="froyo_product_analysis_agent",
@@ -53,9 +64,6 @@ root_agent = Agent(
         "runs Spark jobs on Dataproc, and renders interactive graphs."
     ),
     instruction=FROYO_AGENT_INSTRUCTIONS,
-    tools=[
-        execute_bigquery_query,
-        execute_spark_notebook,
-        execute_visualization_code,
-    ],
+    tools=agent_tools,
 )
+
