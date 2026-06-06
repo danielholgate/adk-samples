@@ -27,7 +27,7 @@ from product_analysis_agent.mcp import get_dataplex_mcp_toolset
 from product_analysis_agent.prompt import FROYO_AGENT_INSTRUCTIONS
 from product_analysis_agent.tools import (
     execute_bigquery_query,
-    execute_spark_notebook,
+    submit_spark_batch,
     execute_visualization_code,
 )
 
@@ -51,7 +51,7 @@ os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "True"
 
 agent_tools = [
     execute_bigquery_query,
-    execute_spark_notebook,
+    submit_spark_batch,
     execute_visualization_code,
 ]
 

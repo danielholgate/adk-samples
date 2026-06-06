@@ -21,7 +21,7 @@ import unittest.mock
 from froyo_product_analysis.agent import root_agent
 from froyo_product_analysis.tools import (
     execute_bigquery_query,
-    execute_spark_notebook,
+    submit_spark_batch,
 )
 
 
@@ -36,7 +36,7 @@ class TestFroyoAgent(unittest.TestCase):
         # Check registered tool names/types
         registered_tools = [tool.__name__ for tool in root_agent.tools if hasattr(tool, "__name__")]
         self.assertIn("execute_bigquery_query", registered_tools)
-        self.assertIn("execute_spark_notebook", registered_tools)
+        self.assertIn("submit_spark_batch", registered_tools)
         self.assertIn("execute_visualization_code", registered_tools)
 
     @unittest.mock.patch("froyo_product_analysis.tools.bigquery.Client")
@@ -62,8 +62,8 @@ class TestFroyoAgent(unittest.TestCase):
         mock_client.query.assert_called_once()
 
     @unittest.mock.patch("froyo_product_analysis.tools.dataproc.BatchControllerClient")
-    def test_dataproc_serverless_notebook(self, mock_batch_client_cls):
-        """Verifies Dataproc Serverless notebook runs successfully using Iceberg Federation template."""
+    def test_dataproc_serverless_batch(self, mock_batch_client_cls):
+        """Verifies Dataproc Serverless batch job runs successfully using Iceberg Federation template."""
         mock_client = mock_batch_client_cls.return_value
         mock_operation = unittest.mock.Mock()
         mock_client.create_batch.return_value = mock_operation
@@ -72,10 +72,10 @@ class TestFroyoAgent(unittest.TestCase):
         mock_response.state.name = "SUCCEEDED"
         mock_operation.result.return_value = mock_response
 
-        notebook_uri = "gs://froyo-analytics-lake/notebooks/pdf_customer_join.ipynb"
-        result_str = execute_spark_notebook(
-            notebook_uri=notebook_uri,
-            parameters={"target_dataset": "cloud_summits_pdfs"}
+        pyspark_file_uri = "gs://froyo-analytics-lake/scripts/pdf_customer_join.py"
+        result_str = submit_spark_batch(
+            pyspark_file_uri=pyspark_file_uri,
+            args=["--target-dataset", "cloud_summits_pdfs"]
         )
 
         self.assertIsNotNone(result_str)
@@ -85,6 +85,7 @@ class TestFroyoAgent(unittest.TestCase):
         self.assertEqual(result_data["state"], "SUCCEEDED")
         self.assertEqual(result_data["template_used"], "iceberg-federation-template")
         mock_client.create_batch.assert_called_once()
+
 
     @unittest.mock.patch("google.adk.tools.mcp_tool.mcp_toolset.McpToolset")
     def test_get_dataplex_mcp_toolset(self, mock_mcp_toolset_cls):

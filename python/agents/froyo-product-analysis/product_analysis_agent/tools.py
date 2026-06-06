@@ -95,28 +95,31 @@ def execute_bigquery_query(sql: str) -> str:
 
 
 # ==============================================================================
-# 2.5. DATAPROC SERVERLESS SPARK NOTEBOOK TOOL
+# ==============================================================================
+# 2.5. DATAPROC SERVERLESS SPARK BATCH TOOL
 # ==============================================================================
 
-# Serverless Session Template required as kernel/session for running Spark Notebooks
+# Serverless Session Template required as kernel/session for running Spark Notebooks/Jobs
 SERVERLESS_SESSION_TEMPLATE = os.getenv("SERVERLESS_SESSION_TEMPLATE", "iceberg-federation-template")
 
-def execute_spark_notebook(
-    notebook_uri: str,
-    parameters: dict[str, Any] | None = None,
-) -> str:
-    """Executes a Spark notebook on Dataproc Serverless with the Iceberg Federation template kernel.
 
-    Must be used for all joins between Froyo customer databases and PDF semantic specifications.
+
+def submit_spark_batch(
+    pyspark_file_uri: str,
+    args: list[str] | None = None,
+) -> str:
+    """Submits a Serverless Spark batch job (PySpark) directly to Dataproc.
+
+    Must be used for all Spark data processing/joins when a notebook is not needed.
 
     Args:
-        notebook_uri: GCS URI (gs://...) of the target Spark notebook.
-        parameters: Optional dictionary of query/execution parameters to pass.
+        pyspark_file_uri: GCS URI (gs://...) of the PySpark script to execute.
+        args: Optional list of command-line arguments to pass to the script.
 
     Returns:
-        JSON string detailing the notebook execution results and status.
+        JSON string detailing the job execution results and status.
     """
-    print(f"Executing Spark Notebook '{notebook_uri}' using Dataproc Serverless Template '{SERVERLESS_SESSION_TEMPLATE}'")
+    print(f"Submitting PySpark job '{pyspark_file_uri}' using Dataproc Serverless Template '{SERVERLESS_SESSION_TEMPLATE}'")
 
     try:
         # Create a Batch client for Dataproc Serverless
@@ -134,24 +137,28 @@ def execute_spark_notebook(
             }
         )
 
-        # Notebook is submitted via PySparkBatch referencing a wrapper script
-        # that executes the notebook using papermill
-        job_args = [notebook_uri]
-        if parameters:
-            job_args.append(json.dumps(parameters))
-
         pyspark_batch = dataproc.PySparkBatch(
-            main_python_file_uri=f"gs://{GCS_BUCKET_FOR_SPARK}/scripts/notebook_runner.py",
-            args=job_args
+            main_python_file_uri=pyspark_file_uri,
+            args=args
+        )
+
+        # Construct service account dynamically based on project
+        worker_sa = os.getenv("DATAPROC_WORKER_SA", f"your-dataproc-worker-sa@{GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com")
+
+        environment_config = dataproc.EnvironmentConfig(
+            execution_config=dataproc.ExecutionConfig(
+                service_account=worker_sa
+            )
         )
 
         batch = dataproc.Batch(
             pyspark_batch=pyspark_batch,
             runtime_config=runtime_config,
+            environment_config=environment_config,
             labels={"submitted_by": "froyo_product_analysis_agent", "template": SERVERLESS_SESSION_TEMPLATE}
         )
 
-        batch_id = f"notebook-run-{datetime.datetime.now().strftime('%Y%m%d-%H%M%S')}"
+        batch_id = f"spark-job-{datetime.datetime.now().strftime('%Y%m%d-%H%M%S')}"
         parent = f"projects/{GOOGLE_CLOUD_PROJECT}/locations/{DATAPROC_REGION}"
 
         operation = client.create_batch(
@@ -168,22 +175,25 @@ def execute_spark_notebook(
             "batch_id": batch_id,
             "state": response.state.name,
             "template_used": SERVERLESS_SESSION_TEMPLATE,
-            "message": "Spark notebook executed successfully via Dataproc Serverless."
+            "message": "Spark job executed successfully via Dataproc Serverless."
         }, indent=2)
 
     except GoogleAPICallError as e:
         logger.error("GCP Dataproc Serverless Batch call failed: %s", e.message, exc_info=True)
         return json.dumps({
             "status": "ERROR",
-            "error_message": f"Failed to run Spark notebook: {e.message}",
+            "error_message": f"Failed to run Spark job: {e.message}",
             "hint": f"Ensure Serverless template '{SERVERLESS_SESSION_TEMPLATE}' is configured."
         }, indent=2)
     except Exception as e:
-        logger.error("Unexpected error during notebook execution: %s", e, exc_info=True)
+        logger.error("Unexpected error during Spark job execution: %s", e, exc_info=True)
         return json.dumps({
             "status": "ERROR",
             "error_message": f"Unexpected error: {e!s}"
         }, indent=2)
+
+
+
 
 
 # ==============================================================================
