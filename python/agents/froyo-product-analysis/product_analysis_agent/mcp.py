@@ -34,7 +34,8 @@ def get_dataplex_mcp_toolset():
 
         import pathlib
         import site
-        package_parent_dir = str(pathlib.Path(__file__).parent.parent.resolve())
+        package_parent_dir = pathlib.Path(__file__).parent.parent.resolve()
+        mcp_server_path = package_parent_dir / "dataplex-mcp-server" / "mcp_server.py"
 
         site_paths = []
         try:
@@ -48,7 +49,7 @@ def get_dataplex_mcp_toolset():
         except AttributeError:
             pass
 
-        all_paths = [package_parent_dir] + site_paths
+        all_paths = [str(package_parent_dir)] + site_paths
 
         env = dict(os.environ)
         existing_pythonpath = env.get("PYTHONPATH", "")
@@ -60,7 +61,7 @@ def get_dataplex_mcp_toolset():
         connection_params = StdioConnectionParams(
             server_params=StdioServerParameters(
                 command=sys.executable,
-                args=["-m", "product_analysis_agent.local_mcp_server"],
+                args=[str(mcp_server_path)],
                 env=env,
             ),
             timeout=20.0,

@@ -87,4 +87,4 @@ def lookup_context(entry: str, project_id: str = "cloud-summit-data-analytics", 
 '''
 
 if __name__ == "__main__":
-     mcp.run()   
+     mcp.run()
