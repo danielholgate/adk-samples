@@ -80,7 +80,8 @@ def get_dataplex_mcp_toolset():
                 
                 # Filter to only allow read-only lookup/search tools
                 allowed_tool_names = {
-                    "search_entries"
+                    "search_entries",
+                    "get_entry_detail"
                 }
                 tools = [t for t in tools if getattr(t, "name", getattr(t, "__name__", "")) in allowed_tool_names]
 

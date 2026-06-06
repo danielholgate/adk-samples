@@ -29,10 +29,12 @@ client = dataplex_v1.CatalogServiceClient()
 
 @mcp.tool()
 def search_entries(query: str, project_id: str = "cloud-summit-data-analytics", location: str = "global") -> str:
-    """Searches for entries in the Knowledge Catalog matching a set of characteristics
+    """Searches and lists multiple entries in the Knowledge Catalog matching a search query.
+    
+    Use this tool to find lists of tables, views, or datasets. Do NOT use this to look up a single specific entry's full metadata.
 
     Args:
-        query: Required. The query string to search for.
+        query: Required. The query string to search for (e.g. 'type=TABLE').
         project_id: The project ID to which the request should be attributed.
         location: The location to which the request should be attributed.
     """
@@ -49,8 +51,10 @@ def search_entries(query: str, project_id: str = "cloud-summit-data-analytics", 
         return f"Error: {e}"
 
 @mcp.tool()
-def lookup_entry(entry: str, project_id: str = "cloud-summit-data-analytics", location: str = "global") -> str:
-    """Looks up an entry by either resource name or fully qualified name in the Knowledge Catalog.
+def get_entry_detail(entry: str, project_id: str = "cloud-summit-data-analytics", location: str = "global") -> str:
+    """Gets full metadata details about a single specific entry (like a table, view, or dataset) by its resource name or fully qualified name.
+    
+    Do NOT use this tool to search, find, or list multiple entries.
 
     Args:
         entry: Required. The resource name of the Entry to lookup.
@@ -63,7 +67,7 @@ def lookup_entry(entry: str, project_id: str = "cloud-summit-data-analytics", lo
         response = client.lookup_entry(name=parent, entry=entry)
         return type(response).to_json(response)
     except Exception as e:
-        logger.error(f"Error in lookup_entry: {e}")
+        logger.error(f"Error in get_entry_detail: {e}")
         return f"Error: {e}"
 
 '''
