@@ -51,7 +51,7 @@ GOOGLE_CLOUD_PROJECT = os.getenv("GOOGLE_CLOUD_PROJECT", "cloud-summit-data-anal
 DATAPROC_REGION = os.getenv("DATAPROC_REGION", "us-central1")
 
 # Cloud Storage bucket for Dataproc inputs, outputs, and scripts.
-GCS_BUCKET_FOR_SPARK = os.getenv("GCS_BUCKET_FOR_SPARK", "froyo-analytics-lake")
+GCS_BUCKET_FOR_SPARK = os.getenv("GCS_BUCKET_FOR_SPARK_UPLOAD", "froyo-analytics-lake")
 
 
 
