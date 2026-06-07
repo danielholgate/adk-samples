@@ -64,7 +64,7 @@ def get_entry_detail(entry: str, project_id: str = "cloud-summit-data-analytics"
     try:
         parent = f"projects/{project_id}/locations/{location}"
         logger.info(f"Looking up entry {entry} under {parent}")
-        response = client.lookup_entry(name=parent, entry=entry)
+        response = client.lookup_entry(request={"name": parent, "entry": entry})
         return type(response).to_json(response)
     except Exception as e:
         logger.error(f"Error in get_entry_detail: {e}")
