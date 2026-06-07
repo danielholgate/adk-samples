@@ -133,6 +133,12 @@ def submit_spark_batch(
             version="2.0",
             properties={
                 "spark.dataproc.serverless.session.template": SERVERLESS_SESSION_TEMPLATE,
+                "spark.jars.packages": "org.apache.iceberg:iceberg-spark-runtime-3.4_2.12:1.1.0",
+                "spark.sql.extensions": "org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions",
+                "spark.sql.catalog.cloud_summit_2026_lakehouse": "org.apache.iceberg.spark.SparkSessionCatalog",
+                "spark.sql.catalog.cloud_summit_2026_lakehouse.catalog-impl": "org.apache.iceberg.rest.RESTCatalog",
+                "spark.sql.catalog.cloud_summit_2026_lakehouse.uri": f"https://{DATAPROC_REGION}-dataplex.cloud.google.com/v1/projects/{GOOGLE_CLOUD_PROJECT}/locations/{DATAPROC_REGION}/lakes/acai-lake/zones/acai-lakehouse-zone/assets/orders/catalogs/iceberg",
+                "spark.sql.catalog.cloud_summit_2026_lakehouse.warehouse": "gs://cloud-summit-2026-lakehouse",
                 "spark.sql.catalog.spark_catalog": "org.apache.iceberg.spark.SparkSessionCatalog",
                 "spark.sql.catalog.spark_catalog.type": "hive"
             }

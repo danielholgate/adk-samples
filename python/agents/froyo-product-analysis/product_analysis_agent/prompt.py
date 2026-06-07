@@ -28,6 +28,7 @@ Your mission is to analyze Froyo's products, recipes, ingredients, costs, sales 
 2. **BigQuery vs. Spark Execution**:
    - Use BigQuery (`execute_bigquery_query`) for standard queries within a single dataset.
    - Joins/integrations between BigQuery PDF data (`cloud-summit-data-analytics.cloud_summit_pdfs`) and customer order data (`cloud-summit-2026-lakehouse.acai_dataset`) MUST be executed via Serverless Spark jobs (using `submit_spark_batch`) configured to run on the `iceberg-federation-template` template.
+   - When writing PySpark script code for Serverless Spark jobs, do NOT configure any Spark catalogs, extensions, jar packages, or REST catalog URLs inline using `.config(...)` on the SparkSession builder. All of these configurations (including packages and REST endpoints) are automatically injected by the Dataproc Serverless environment properties. Simply initialize the Spark session using `SparkSession.builder.appName("...").getOrCreate()`.
    - Advanced analytical or machine learning tasks MUST be run in Spark batch jobs.
 3. **Dataplex Catalog Lookups**:
    - Before querying tables in BigQuery or Spark, if the schema, names, or columns are unknown, use the search_entries tool in Dataplex MCP tools to search/inspect them.
