@@ -92,8 +92,7 @@ def get_dataplex_mcp_toolset():
                 )
 
                 # Wrap each tool with logging to track executions and exceptions
-                wrapped_tools = []
-                for tool in tools:
+                def wrap_tool(tool):
                     tool_name = getattr(tool, "name", getattr(tool, "__name__", str(tool)))
                     if hasattr(tool, "run_async"):
                         original_run_async = tool.run_async
@@ -109,7 +108,7 @@ def get_dataplex_mcp_toolset():
                                 raise err
                         import types
                         tool.run_async = types.MethodType(logged_run_async, tool)
-                        wrapped_tools.append(tool)
+                        return tool
                     elif inspect.iscoroutinefunction(tool):
                         @functools.wraps(tool)
                         async def async_wrapper(*w_args, **w_kwargs):
@@ -122,7 +121,7 @@ def get_dataplex_mcp_toolset():
                             except Exception as err:
                                 logger.error(f"MCP Tool '{tool_name}' failed with error: {err}", exc_info=True)
                                 raise err
-                        wrapped_tools.append(async_wrapper)
+                        return async_wrapper
                     else:
                         @functools.wraps(tool)
                         def sync_wrapper(*w_args, **w_kwargs):
@@ -135,7 +134,9 @@ def get_dataplex_mcp_toolset():
                             except Exception as err:
                                 logger.error(f"MCP Tool '{tool_name}' failed with error: {err}", exc_info=True)
                                 raise err
-                        wrapped_tools.append(sync_wrapper)
+                        return sync_wrapper
+
+                wrapped_tools = [wrap_tool(tool) for tool in tools]
                 return wrapped_tools
             except Exception as e:
                 logger.error(f"Failed to establish communication with Dataplex MCP server: {e}", exc_info=True)
