@@ -53,12 +53,12 @@ def search_entries(query: str, project_id: str = "cloud-summit-data-analytics", 
 
 @mcp.tool()
 def get_entry_detail(entry: str, project_id: str = "cloud-summit-data-analytics", location: str = "global") -> str:
-    """Gets full metadata details about a single specific entry (like a table, view, or dataset) by its resource name or fully qualified name.
+    """Gets full metadata details about a single specific entry (like a table, view, or dataset) by its relative resource name (starting with 'projects/').
     
-    Do NOT use this tool to search, find, or list multiple entries.
+    Do NOT use this tool to search, find, or list multiple entries. Do NOT pass a fully qualified name (like 'biglake:table:...') or simple table names directly.
 
     Args:
-        entry: Required. The resource name of the Entry to lookup.
+        entry: Required. The relative resource name of the Entry to lookup (starting with 'projects/').
         project_id: The project ID to which the request should be attributed.
         location: The location to which the request should be attributed.
     """
