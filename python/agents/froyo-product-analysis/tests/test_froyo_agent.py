@@ -96,7 +96,7 @@ class TestFroyoAgent(unittest.TestCase):
         mock_toolset = unittest.mock.Mock()
         mock_mcp_toolset_cls.return_value = mock_toolset
 
-        from froyo_product_analysis.mcp import get_dataplex_mcp_toolset
+        from froyo_product_analysis.mcp_config import get_dataplex_mcp_toolset
         toolset = get_dataplex_mcp_toolset()
 
         self.assertEqual(toolset, mock_toolset)

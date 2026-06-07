@@ -23,7 +23,7 @@ from dotenv import load_dotenv
 logger = logging.getLogger(__name__)
 
 from google.adk.agents import Agent
-from product_analysis_agent.mcp import get_dataplex_mcp_toolset
+from product_analysis_agent.mcp_config import get_dataplex_mcp_toolset
 from product_analysis_agent.prompt import FROYO_AGENT_INSTRUCTIONS
 from product_analysis_agent.tools import (
     execute_bigquery_query,
