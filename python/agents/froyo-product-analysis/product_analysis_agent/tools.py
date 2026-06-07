@@ -49,6 +49,7 @@ GOOGLE_CLOUD_PROJECT = os.getenv("GOOGLE_CLOUD_PROJECT", "cloud-summit-data-anal
 
 # Dataproc settings for running Spark analytics jobs.
 DATAPROC_REGION = os.getenv("DATAPROC_REGION", "us-central1")
+DATAPROC_CLUSTER_NAME = os.getenv("DATAPROC_CLUSTER_NAME", "summit-spark-cluster")
 
 # Cloud Storage bucket for Dataproc inputs, outputs, and scripts.
 GCS_BUCKET_FOR_SPARK = os.getenv("GCS_BUCKET_FOR_SPARK_UPLOAD", "froyo-analytics-lake")
@@ -97,19 +98,15 @@ def execute_bigquery_query(sql: str) -> str:
 
 # ==============================================================================
 # ==============================================================================
-# 2.5. DATAPROC SERVERLESS SPARK BATCH TOOL
+# 2.5. DATAPROC SPARK JOB TOOL
 # ==============================================================================
-
-# Serverless Session Template required as kernel/session for running Spark Notebooks/Jobs
-SERVERLESS_SESSION_TEMPLATE = os.getenv("SERVERLESS_SESSION_TEMPLATE", "iceberg-federation-template")
-
 
 
 def submit_spark_batch(
     pyspark_file_uri: str,
     args: list[str] | None = None,
 ) -> str:
-    """Submits a Serverless Spark batch job (PySpark) directly to Dataproc.
+    """Submits a Spark job (PySpark) directly to a Dataproc Cluster.
 
     Must be used for all Spark data processing/joins when a notebook is not needed.
 
@@ -120,80 +117,60 @@ def submit_spark_batch(
     Returns:
         JSON string detailing the job execution results and status.
     """
-    print(f"Submitting PySpark job '{pyspark_file_uri}' using Dataproc Serverless Template '{SERVERLESS_SESSION_TEMPLATE}'")
+    print(f"Submitting PySpark job '{pyspark_file_uri}' to Dataproc Cluster '{DATAPROC_CLUSTER_NAME}' in region '{DATAPROC_REGION}'")
 
     try:
-        # Create a Batch client for Dataproc Serverless
-        client = dataproc.BatchControllerClient(
+        # Create a Job client for Dataproc Cluster
+        client = dataproc.JobControllerClient(
             client_options={"api_endpoint": f"{DATAPROC_REGION}-dataproc.googleapis.com:443"}
         )
 
-        # Build execution runtime configs referencing the Iceberg federation template
-        runtime_config = dataproc.RuntimeConfig(
-            version="2.0",
-            properties={
-                "spark.dataproc.serverless.session.template": SERVERLESS_SESSION_TEMPLATE,
-                "spark.jars.packages": "org.apache.iceberg:iceberg-spark-runtime-3.4_2.12:1.1.0",
-                "spark.sql.extensions": "org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions",
-                "spark.sql.catalog.cloud_summit_2026_lakehouse": "org.apache.iceberg.spark.SparkSessionCatalog",
-                "spark.sql.catalog.cloud_summit_2026_lakehouse.catalog-impl": "org.apache.iceberg.rest.RESTCatalog",
-                "spark.sql.catalog.cloud_summit_2026_lakehouse.uri": f"https://{DATAPROC_REGION}-dataplex.cloud.google.com/v1/projects/{GOOGLE_CLOUD_PROJECT}/locations/{DATAPROC_REGION}/lakes/acai-lake/zones/acai-lakehouse-zone/assets/orders/catalogs/iceberg",
-                "spark.sql.catalog.cloud_summit_2026_lakehouse.warehouse": "gs://cloud-summit-2026-lakehouse",
-                "spark.sql.catalog.spark_catalog": "org.apache.iceberg.spark.SparkSessionCatalog",
-                "spark.sql.catalog.spark_catalog.type": "hive"
-            }
+        # Build execution properties for PySpark job
+        properties = {
+            "spark.jars.packages": "org.apache.iceberg:iceberg-spark-runtime-3.4_2.12:1.1.0",
+            "spark.sql.extensions": "org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions",
+            "spark.sql.catalog.cloud_summit_2026_lakehouse": "org.apache.iceberg.spark.SparkSessionCatalog",
+            "spark.sql.catalog.cloud_summit_2026_lakehouse.catalog-impl": "org.apache.iceberg.rest.RESTCatalog",
+            "spark.sql.catalog.cloud_summit_2026_lakehouse.uri": f"https://{DATAPROC_REGION}-dataplex.cloud.google.com/v1/projects/{GOOGLE_CLOUD_PROJECT}/locations/{DATAPROC_REGION}/lakes/acai-lake/zones/acai-lakehouse-zone/assets/orders/catalogs/iceberg",
+            "spark.sql.catalog.cloud_summit_2026_lakehouse.warehouse": "gs://cloud-summit-2026-lakehouse",
+            "spark.sql.catalog.spark_catalog": "org.apache.iceberg.spark.SparkSessionCatalog",
+            "spark.sql.catalog.spark_catalog.type": "hive"
+        }
+
+        job = {
+            "placement": {"cluster_name": DATAPROC_CLUSTER_NAME},
+            "pyspark_job": {
+                "main_python_file_uri": pyspark_file_uri,
+                "args": args or [],
+                "properties": properties
+            },
+            "labels": {"submitted_by": "froyo_product_analysis_agent"}
+        }
+
+        operation = client.submit_job_as_operation(
+            request={"project_id": GOOGLE_CLOUD_PROJECT, "region": DATAPROC_REGION, "job": job}
         )
 
-        pyspark_batch = dataproc.PySparkBatch(
-            main_python_file_uri=pyspark_file_uri,
-            args=args
-        )
-
-        # Construct service account dynamically based on project
-        worker_sa = os.getenv("DATAPROC_WORKER_SA", f"your-dataproc-worker-sa@{GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com")
-
-        environment_config = dataproc.EnvironmentConfig(
-            execution_config=dataproc.ExecutionConfig(
-                service_account=worker_sa
-            )
-        )
-
-        batch = dataproc.Batch(
-            pyspark_batch=pyspark_batch,
-            runtime_config=runtime_config,
-            environment_config=environment_config,
-            labels={"submitted_by": "froyo_product_analysis_agent", "template": SERVERLESS_SESSION_TEMPLATE}
-        )
-
-        batch_id = f"spark-job-{datetime.datetime.now().strftime('%Y%m%d-%H%M%S')}"
-        parent = f"projects/{GOOGLE_CLOUD_PROJECT}/locations/{DATAPROC_REGION}"
-
-        operation = client.create_batch(
-            parent=parent,
-            batch=batch,
-            batch_id=batch_id
-        )
-
-        print(f"Submitted Dataproc Serverless batch '{batch_id}'. Waiting for completion...")
+        print(f"Submitted Dataproc job. Waiting for completion...")
         response = operation.result()
 
         return json.dumps({
             "status": "SUCCESS",
-            "batch_id": batch_id,
-            "state": response.state.name,
-            "template_used": SERVERLESS_SESSION_TEMPLATE,
-            "message": "Spark job executed successfully via Dataproc Serverless."
+            "job_id": response.reference.job_id,
+            "state": response.status.state.name,
+            "cluster_name": DATAPROC_CLUSTER_NAME,
+            "message": "Spark job executed successfully via Dataproc Cluster."
         }, indent=2)
 
     except GoogleAPICallError as e:
-        logger.error("GCP Dataproc Serverless Batch call failed: %s", e.message, exc_info=True)
+        logger.error("GCP Dataproc Job call failed: %s", e.message, exc_info=True)
         return json.dumps({
             "status": "ERROR",
-            "error_message": f"Failed to run Spark job: {e.message}",
-            "hint": f"Ensure Serverless template '{SERVERLESS_SESSION_TEMPLATE}' is configured."
+            "error_message": f"Failed to run Spark job on cluster: {e.message}",
+            "hint": f"Ensure Dataproc Cluster '{DATAPROC_CLUSTER_NAME}' is running in region '{DATAPROC_REGION}'."
         }, indent=2)
     except Exception as e:
-        logger.error("Unexpected error during Spark job execution: %s", e, exc_info=True)
+        logger.error("Unexpected error during Spark job execution on cluster: %s", e, exc_info=True)
         return json.dumps({
             "status": "ERROR",
             "error_message": f"Unexpected error: {e!s}"
@@ -291,7 +268,7 @@ def upload_file_to_gcs(
     """Uploads a string file content to a Google Cloud Storage bucket path.
 
     This tool is used to write PySpark scripts or other code resources to Cloud Storage
-    prior to running Serverless Spark jobs.
+    prior to running Spark jobs.
 
     Args:
         content: Required. The string content (e.g. PySpark Python code) to write to the file.

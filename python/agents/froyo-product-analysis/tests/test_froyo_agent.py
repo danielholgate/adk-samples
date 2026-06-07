@@ -62,15 +62,16 @@ class TestFroyoAgent(unittest.TestCase):
         self.assertEqual(result_data[0]["product_id"], "P001")
         mock_client.query.assert_called_once()
 
-    @unittest.mock.patch("froyo_product_analysis.tools.dataproc.BatchControllerClient")
-    def test_dataproc_serverless_batch(self, mock_batch_client_cls):
-        """Verifies Dataproc Serverless batch job runs successfully using Iceberg Federation template."""
-        mock_client = mock_batch_client_cls.return_value
+    @unittest.mock.patch("froyo_product_analysis.tools.dataproc.JobControllerClient")
+    def test_dataproc_cluster_job(self, mock_job_client_cls):
+        """Verifies Dataproc Spark job runs successfully on a cluster."""
+        mock_client = mock_job_client_cls.return_value
         mock_operation = unittest.mock.Mock()
-        mock_client.create_batch.return_value = mock_operation
+        mock_client.submit_job_as_operation.return_value = mock_operation
         
         mock_response = unittest.mock.Mock()
-        mock_response.state.name = "SUCCEEDED"
+        mock_response.reference.job_id = "test-job-123"
+        mock_response.status.state.name = "DONE"
         mock_operation.result.return_value = mock_response
 
         pyspark_file_uri = "gs://froyo-analytics-lake/scripts/pdf_customer_join.py"
@@ -83,9 +84,10 @@ class TestFroyoAgent(unittest.TestCase):
         result_data = json.loads(result_str)
 
         self.assertEqual(result_data["status"], "SUCCESS")
-        self.assertEqual(result_data["state"], "SUCCEEDED")
-        self.assertEqual(result_data["template_used"], "iceberg-federation-template")
-        mock_client.create_batch.assert_called_once()
+        self.assertEqual(result_data["state"], "DONE")
+        self.assertEqual(result_data["job_id"], "test-job-123")
+        self.assertEqual(result_data["cluster_name"], "summit-spark-cluster")
+        mock_client.submit_job_as_operation.assert_called_once()
 
 
     @unittest.mock.patch("google.adk.tools.mcp_tool.mcp_toolset.McpToolset")
