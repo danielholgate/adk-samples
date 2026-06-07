@@ -122,5 +122,47 @@ class TestFroyoAgent(unittest.TestCase):
         mock_bucket.blob.assert_called_once_with(destination)
         mock_blob.upload_from_string.assert_called_once_with(content, content_type="text/x-python")
 
+    @unittest.mock.patch("froyo_product_analysis.tools.plt")
+    def test_execute_visualization_matplotlib(self, mock_plt):
+        """Verifies execute_visualization_code generates and returns a Matplotlib chart Part."""
+        import asyncio
+        mock_fig = unittest.mock.Mock()
+        mock_plt.figure.return_value = mock_fig
+        
+        mock_context = unittest.mock.AsyncMock()
+        
+        from froyo_product_analysis.tools import execute_visualization_code
+        
+        code = "import matplotlib.pyplot as plt\nfig = plt.figure()"
+        result = asyncio.run(execute_visualization_code(
+            code=code,
+            tool_context=mock_context,
+            chart_type="matplotlib",
+            filename="chart.png"
+        ))
+        
+        self.assertIsNotNone(result)
+        self.assertEqual(result.inline_data.mime_type, "image/png")
+        mock_context.save_artifact.assert_called_once()
+
+    def test_execute_visualization_plotly(self):
+        """Verifies execute_visualization_code generates and returns a Plotly chart Part."""
+        import asyncio
+        mock_context = unittest.mock.AsyncMock()
+        
+        from froyo_product_analysis.tools import execute_visualization_code
+        
+        code = "import plotly.express as px\nfig = px.scatter(x=[1, 2], y=[3, 4])"
+        result = asyncio.run(execute_visualization_code(
+            code=code,
+            tool_context=mock_context,
+            chart_type="plotly",
+            filename="chart.html"
+        ))
+        
+        self.assertIsNotNone(result)
+        self.assertEqual(result.inline_data.mime_type, "image/png")
+        mock_context.save_artifact.assert_called_once()
+
 
 

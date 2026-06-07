@@ -265,10 +265,13 @@ async def execute_visualization_code(
             part,
         )
 
-        if chart_type == "matplotlib":
-            return part
+        if chart_type == "plotly":
+            # For Plotly, generate a static PNG representation and return it so it renders inline in the chat
+            img_bytes = fig.to_image(format="png")
+            img_part = types.Part.from_bytes(data=img_bytes, mime_type="image/png")
+            return img_part
 
-        return f"Successfully generated {chart_type} chart. Saved as artifact ID: {artifact_id}"
+        return part
     except Exception as e:
         logger.error("Failed to run visualization generation: %s", e)
         return f"Error executing visualization script: {e!s}"
