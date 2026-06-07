@@ -65,7 +65,7 @@ else:
     logger.warning("Dataplex MCP toolset is not configured or failed to initialize. Proceeding without MCP tools.")
 
 config = types.GenerateContentConfig(
-    temperature=0.2
+    temperature=1.0
 )
 
 root_agent = Agent(
