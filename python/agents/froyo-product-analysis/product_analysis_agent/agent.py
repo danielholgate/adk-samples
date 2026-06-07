@@ -41,7 +41,7 @@ load_dotenv()
 
 # Gemini model used to power the analysis agent
 # Typically "gemini-2.5-flash" or "gemini-2.5-pro"
-AGENT_MODEL = os.getenv("AGENT_MODEL", "gemini-2.5-flash")
+AGENT_MODEL = os.getenv("AGENT_MODEL", "gemini-3.0-flash")
 
 os.environ["GOOGLE_GENAI_USE_VERTEXAI"] = "True"
 
@@ -64,6 +64,10 @@ if mcp_toolset:
 else:
     logger.warning("Dataplex MCP toolset is not configured or failed to initialize. Proceeding without MCP tools.")
 
+config = types.GenerateContentConfig(
+    temperature=0.2
+)
+
 root_agent = Agent(
     model=AGENT_MODEL,
     name="froyo_product_analysis_agent",
@@ -71,6 +75,7 @@ root_agent = Agent(
         "Froyo Frozen Yogurt product analytics agent. Accesses BigQuery data, dataplex catalog, "
         "runs Spark jobs on Dataproc, and renders interactive graphs."
     ),
+    generate_content_config=config,
     instruction=FROYO_AGENT_INSTRUCTIONS,
     tools=agent_tools,
 )
