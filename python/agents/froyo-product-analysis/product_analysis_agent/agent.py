@@ -29,6 +29,7 @@ from product_analysis_agent.tools import (
     execute_bigquery_query,
     submit_spark_batch,
     execute_visualization_code,
+    upload_file_to_gcs,
 )
 
 # Load local environment file if present
@@ -53,6 +54,7 @@ agent_tools = [
     execute_bigquery_query,
     submit_spark_batch,
     execute_visualization_code,
+    upload_file_to_gcs,
 ]
 
 mcp_toolset = get_dataplex_mcp_toolset()

@@ -32,6 +32,7 @@ from google.adk.agents.context import Context as ToolContext
 from google.api_core.exceptions import GoogleAPICallError
 from google.cloud import bigquery
 from google.cloud import dataproc_v1 as dataproc
+from google.cloud import storage
 from google.genai import types
 
 logger = logging.getLogger(__name__)
@@ -271,3 +272,35 @@ async def execute_visualization_code(
     except Exception as e:
         logger.error("Failed to run visualization generation: %s", e)
         return f"Error executing visualization script: {e!s}"
+
+
+def upload_file_to_gcs(
+    content: str,
+    destination_blob_name: str,
+    bucket_name: str = GCS_BUCKET_FOR_SPARK,
+) -> str:
+    """Uploads a string file content to a Google Cloud Storage bucket path.
+
+    This tool is used to write PySpark scripts or other code resources to Cloud Storage
+    prior to running Serverless Spark jobs.
+
+    Args:
+        content: Required. The string content (e.g. PySpark Python code) to write to the file.
+        destination_blob_name: Required. The GCS path (blob name) where the file should be saved (e.g. 'scripts/my_job.py').
+        bucket_name: The GCS bucket name. Defaults to the configured Spark bucket.
+
+    Returns:
+        The full GCS URI of the uploaded file (e.g. 'gs://bucket-name/scripts/my_job.py') or an error message.
+    """
+    try:
+        storage_client = storage.Client(project=GOOGLE_CLOUD_PROJECT)
+        bucket = storage_client.bucket(bucket_name)
+        blob = bucket.blob(destination_blob_name)
+        blob.upload_from_string(content, content_type="text/x-python")
+        
+        gcs_uri = f"gs://{bucket_name}/{destination_blob_name}"
+        print(f"Successfully uploaded file to GCS: {gcs_uri}")
+        return gcs_uri
+    except Exception as e:
+        logger.error(f"Failed to upload file to GCS: {e}")
+        return f"Error uploading file to GCS: {e}"

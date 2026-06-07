@@ -38,6 +38,7 @@ class TestFroyoAgent(unittest.TestCase):
         self.assertIn("execute_bigquery_query", registered_tools)
         self.assertIn("submit_spark_batch", registered_tools)
         self.assertIn("execute_visualization_code", registered_tools)
+        self.assertIn("upload_file_to_gcs", registered_tools)
 
     @unittest.mock.patch("froyo_product_analysis.tools.bigquery.Client")
     def test_bigquery_query(self, mock_client_cls):
@@ -98,6 +99,28 @@ class TestFroyoAgent(unittest.TestCase):
 
         self.assertEqual(toolset, mock_toolset)
         mock_mcp_toolset_cls.assert_called_once()
+
+    @unittest.mock.patch("froyo_product_analysis.tools.storage.Client")
+    def test_upload_file_to_gcs(self, mock_storage_client_cls):
+        """Verifies upload_file_to_gcs uploads python code correctly."""
+        mock_client = mock_storage_client_cls.return_value
+        mock_bucket = unittest.mock.Mock()
+        mock_client.bucket.return_value = mock_bucket
+        mock_blob = unittest.mock.Mock()
+        mock_bucket.blob.return_value = mock_blob
+
+        from froyo_product_analysis.tools import upload_file_to_gcs
+        
+        content = "print('hello')"
+        destination = "scripts/hello.py"
+        bucket = "my-test-bucket"
+
+        result = upload_file_to_gcs(content, destination, bucket)
+
+        self.assertEqual(result, f"gs://{bucket}/{destination}")
+        mock_client.bucket.assert_called_once_with(bucket)
+        mock_bucket.blob.assert_called_once_with(destination)
+        mock_blob.upload_from_string.assert_called_once_with(content, content_type="text/x-python")
 
 
 
