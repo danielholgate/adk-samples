@@ -18,6 +18,7 @@ import os
 import json
 import logging
 from mcp.server.fastmcp import FastMCP
+import re
 from google.cloud import dataplex_v1
 
 # Configure logging
@@ -62,6 +63,11 @@ def get_entry_detail(entry: str, project_id: str = "cloud-summit-data-analytics"
         location: The location to which the request should be attributed.
     """
     try:
+        # Extract location from entry path if present (e.g. projects/.../locations/us-central1/...)
+        location_match = re.match(r"^projects/[^/]+/locations/([^/]+)/", entry)
+        if location_match:
+            location = location_match.group(1)
+
         parent = f"projects/{project_id}/locations/{location}"
         logger.info(f"Looking up entry {entry} under {parent}")
         response = client.lookup_entry(request={"name": parent, "entry": entry})
